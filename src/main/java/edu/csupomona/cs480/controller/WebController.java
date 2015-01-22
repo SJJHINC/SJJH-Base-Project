@@ -38,6 +38,7 @@ public class WebController {
 	 */
     @Autowired
     private UserManager userManager;
+    private User currentUser;
 
     /**
      * This is a simple example of how the HTTP API works.
@@ -54,9 +55,37 @@ public class WebController {
         return "OK";
     }
     
-    @RequestMapping(value = "/cs480/TestCode", method = RequestMethod.GET)
-    String testCode() {
-        return "TestCode up and running";
+    //Trying to create the framework for logging in. Could be completely wrong way to do this, but starting somewhere.
+    @RequestMapping(value = "/login/{userId}+{userPass}", method = RequestMethod.GET)
+    String login(
+    		@PathVariable("userId") String userId,
+    		@PathVariable("userPass") String password) {
+   
+    	User user = userManager.getUser(userId);
+    	if(password.compareTo(user.getPassword()) == 0){
+    		currentUser = user;
+    		return "login successful";
+    		
+    	}else{
+    		currentUser = null;
+    		return "login failed, actual password is " + user.getPassword() + " and you entered " + password + " !";
+    		
+    	}
+    
+    }
+    
+    //The system now keeps a record of who is logged in in the global variable currentUser. 
+    //The idea I have is that after a login, the page loads a main page like "modelandView" method
+    //down below, and passes in current user, so it knows to pull up the appropriate lists and etc.
+    @RequestMapping(value = "/check", method = RequestMethod.GET)
+    String Checklogin() {
+    	User temp = currentUser;
+    	if(temp == null){
+    		return "No one is logged in";
+    	}else{
+    		return temp.getName() + " is logged in";
+    	}
+    
     }
 
     /**
@@ -97,9 +126,11 @@ public class WebController {
     User updateUser(
     		@PathVariable("userId") String id,
     		@RequestParam("name") String name,
+    		@RequestParam("password") String password,
     		@RequestParam(value = "major", required = false) String major) {
     	User user = new User();
     	user.setId(id);
+    	user.setPassword(password);
     	user.setMajor(major);
     	user.setName(name);
     	userManager.updateUser(user);

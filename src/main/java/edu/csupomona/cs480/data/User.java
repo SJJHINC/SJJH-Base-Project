@@ -10,6 +10,8 @@ public class User {
 
 	/** The unique user Id */
     private String id;
+    /** The unique password */
+    private String password;
     /** The unique user Id */
     private String name;
     /** The unique user Id */
@@ -47,5 +49,13 @@ public class User {
 
 	public void setCreationTime(String creationTime) {
 		this.creationTime = creationTime;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }
