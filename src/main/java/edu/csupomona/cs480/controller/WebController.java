@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.csupomona.cs480.App;
+import edu.csupomona.cs480.data.ParkedUser;
 import edu.csupomona.cs480.data.User;
+import edu.csupomona.cs480.data.provider.ParkSpaceManager;
 import edu.csupomona.cs480.data.provider.UserManager;
 
 
@@ -39,6 +41,8 @@ public class WebController {
     @Autowired
     private UserManager userManager;
     private User currentUser;
+    private ParkSpaceManager parkSpaceManager = new ParkSpaceManager();
+    private ParkedUser currentParkedUser;
 
     /**
      * This is a simple example of how the HTTP API works.
@@ -169,5 +173,31 @@ public class WebController {
         modelAndView.addObject("users", listAllUsers());
         return modelAndView;
     }
+    //-------------------------------parked space---------------------------------
+    @RequestMapping(value = "/cs480/parkedUser/list", method = RequestMethod.GET)
+    List<ParkedUser> listAllParkedSpace() {
+    	return parkSpaceManager.listAllUsers();
+    }
+    
+    @RequestMapping(value = "/cs480/parkedUser/add", method = RequestMethod.POST)
+    ParkedUser addParkedSpace(
+    		@RequestParam("userId") String userId,
+    		@RequestParam("Time Hour:") int hour,
+    		@RequestParam("minute") int minute,
+    		@RequestParam("Do you want to be picked up?") boolean pickOrNot,
+    		@RequestParam("Where to be pickUp") int buildingNum,
+    		@RequestParam("Contact Information") String contactInfo,
+    		@RequestParam(value = "major", required = false) String major){
+    	ParkedUser user = new ParkedUser();
+    	user.setUserName(userId);
+    	user.setPickup(pickOrNot);
+    	user.setContactInfo(contactInfo);
+    	user.setHour(hour);
+    	user.setMinute(minute);
+    	user.setPickUpBuildingNum(buildingNum);
+    	parkSpaceManager.updateUser(user);
+    	return user;
+    }
+
 
 }

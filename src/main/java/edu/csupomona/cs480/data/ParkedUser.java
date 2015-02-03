@@ -11,7 +11,7 @@ public class ParkedUser {
 	private String contactInfo;
 	
 	//default constructor
-	private ParkedUser(){
+	public ParkedUser(){
 		hour =0;
 		minute=0;
 		pickUpBuildingNum=0;
