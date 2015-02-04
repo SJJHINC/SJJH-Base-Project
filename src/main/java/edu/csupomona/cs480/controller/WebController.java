@@ -15,8 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.ParkedUser;
 import edu.csupomona.cs480.data.User;
+import edu.csupomona.cs480.data.UserNeedSpace;
 import edu.csupomona.cs480.data.provider.ParkSpaceManager;
 import edu.csupomona.cs480.data.provider.UserManager;
+import edu.csupomona.cs480.data.provider.UserNeedSpaceManager;
 
 
 /**
@@ -43,6 +45,8 @@ public class WebController {
     private User currentUser;
     private ParkSpaceManager parkSpaceManager = new ParkSpaceManager();
     private ParkedUser currentParkedUser;
+    private UserNeedSpaceManager userNeedSpaceManager = new UserNeedSpaceManager();
+    private UserNeedSpace userNeedSpace;
 
     /**
      * This is a simple example of how the HTTP API works.
@@ -181,15 +185,14 @@ public class WebController {
     
     @RequestMapping(value = "/cs480/parkedUser/add", method = RequestMethod.POST)
     ParkedUser addParkedSpace(
-    		@RequestParam("userId") String userId,
+    		//@RequestParam("userId") String userId,
     		@RequestParam("Time Hour:") int hour,
     		@RequestParam("minute") int minute,
-    		@RequestParam("Do you want to be picked up?") boolean pickOrNot,
-    		@RequestParam("Where to be pickUp") int buildingNum,
-    		@RequestParam("Contact Information") String contactInfo,
-    		@RequestParam(value = "major", required = false) String major){
+    		@RequestParam("pickOrNot") boolean pickOrNot,
+    		@RequestParam(value="location", required = false) int buildingNum,
+    		@RequestParam("Contact Information") String contactInfo){
     	ParkedUser user = new ParkedUser();
-    	user.setUserName(userId);
+    	user.setUserName(currentUser.getId());
     	user.setPickup(pickOrNot);
     	user.setContactInfo(contactInfo);
     	user.setHour(hour);
@@ -199,5 +202,25 @@ public class WebController {
     	return user;
     }
 
-
+//-------------------------user that need a parking space--------------------------------
+    @RequestMapping(value = "/cs480/userNeedSpace/list", method = RequestMethod.GET)
+    List<UserNeedSpace> listAllUserNeedSpace() {
+    	return userNeedSpaceManager.listAllUsers();
+    }
+    
+    @RequestMapping(value = "/cs480/userNeedSpace/add", method = RequestMethod.POST)
+    UserNeedSpace addUserNeedSpace(
+    		//@RequestParam("userId") String userId,
+    		@RequestParam("Time Hour:") int hour,
+    		@RequestParam("minute") int minute,
+    		@RequestParam("Contact Information") String contactInfo){
+    	UserNeedSpace user = new UserNeedSpace();
+    	user.setUserName(currentUser.getId());
+    	user.setContactInfo(contactInfo);
+    	user.setHour(hour);
+    	user.setMinute(minute);
+    	userNeedSpaceManager.updateUser(user);
+    	return user;
+    }
+    
 }

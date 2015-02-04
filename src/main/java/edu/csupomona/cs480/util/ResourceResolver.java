@@ -35,4 +35,12 @@ public class ResourceResolver {
     	}
     	return file2;
     }
+    public static File getUserNeedSpaceFile(){
+    	File file3 = new File(BASE_DIR + "/" + "userNeedSpace-map.json");
+    	System.out.println(file3.getAbsolutePath());
+    	if(!file3.getParentFile().exists()){
+    		file3.getParentFile().mkdirs();
+    	}
+    	return file3;
+    }
 }

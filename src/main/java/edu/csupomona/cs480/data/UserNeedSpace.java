@@ -7,7 +7,7 @@ public class UserNeedSpace {
 	private String contactInfo;
 	
 	//default constructor
-		private UserNeedSpace(){
+		public UserNeedSpace(){
 			hour =0;
 			minute=0;
 			userName = null;
