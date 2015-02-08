@@ -38,6 +38,13 @@
 		</dependency>
 
 		<dependency>
+  			<!-- jsoup HTML parser library @ http://jsoup.org/ -->
+ 				 <groupId>org.jsoup</groupId>
+  				<artifactId>jsoup</artifactId>
+  				<version>1.8.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jetty</artifactId>
 		</dependency>
