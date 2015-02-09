@@ -27,7 +27,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 ///////////////////////////////////
-
+import org.apache.commons.math3.complex.*;
+import org.apache.commons.math3.random.*;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+//////////////////////////////////
 /**
  * This is the controller used by Spring framework.
  * <p>
@@ -257,6 +260,31 @@ public class WebController {
         e.printStackTrace();
     }
  
-  }
+  } 
+///////////////////////////////////////// Testing Commons-Math, assignment 5, Hesham.      
+     public static void testingCommonsMath(String[] args)
+     {
+    	 RandomGenerator randomGenerator = new JDKRandomGenerator();
+    	 System.out.println(randomGenerator.nextInt());
+    	 System.out.println(randomGenerator.nextDouble());
+     
+    	 //Descriptive Statistics like Mean, standart deviation, Max
+    	 DescriptiveStatistics stats = new DescriptiveStatistics();
+    	 stats.addValue(1);
+    	 stats.addValue(2);
+    	 stats.addValue(3);
+    	 stats.addValue(4);
+    	 stats.addValue(5);
+    	
+    	 System.out.println("Mean is" + stats.getMean()+ "\n");
+    	 System.out.println("Standard Deviation is" +stats.getStandardDeviation()+ "\n");
+    	 System.out.println("Max is"+stats.getMax() +"\n");
     
+    	 Complex c1 = new Complex (1,2);
+    	 Complex c2 = new Complex (2,3);
+    	 System.out.println("Absolute of c1 is " +c1.abs()+ "\n");
+    	 System.out.println("Addition of c1 and c2 is " +(c1.add(c2))+"\n");
+     }
+/////////////////////////////////////////// end of commonsMath testing. 
+     
 }
