@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.ParkedUser;
 import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.UserNeedSpace;
@@ -20,12 +19,22 @@ import edu.csupomona.cs480.data.provider.ParkSpaceManager;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.data.provider.UserNeedSpaceManager;
 
+
+
+
+
+
+
 ///////////////////////////////////
 import java.io.IOException;
+
+import org.apache.commons.lang3.math.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.apache.commons.lang3.math.Fraction;
+import org.apache.commons.lang3.time.StopWatch;
 ///////////////////////////////////
 import org.apache.commons.math3.complex.*;
 import org.apache.commons.math3.random.*;
@@ -72,6 +81,21 @@ public class WebController {
     	// with the URL: http://localhost:8080/
         return "OK";
     }
+    
+    
+    ///Jeremiahs test.
+    @RequestMapping(value = "/cs480/commonsTest", method = RequestMethod.GET)
+    String commons() {
+    	StopWatch st = new StopWatch();
+    	st.start();
+    	st.getStartTime();
+    	st.stop();
+    	return "timer used";
+    	
+    	
+    	
+    }
+    
     
     //Trying to create the framework for logging in. Could be completely wrong way to do this, but starting somewhere.
     @RequestMapping(value = "/login/{userId}+{userPass}", method = RequestMethod.GET)
