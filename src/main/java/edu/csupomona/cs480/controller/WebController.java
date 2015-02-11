@@ -28,12 +28,10 @@ import edu.csupomona.cs480.data.provider.UserNeedSpaceManager;
 ///////////////////////////////////
 import java.io.IOException;
 
-import org.apache.commons.lang3.math.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.apache.commons.lang3.math.Fraction;
 import org.apache.commons.lang3.time.StopWatch;
 ///////////////////////////////////
 import org.apache.commons.math3.complex.*;
