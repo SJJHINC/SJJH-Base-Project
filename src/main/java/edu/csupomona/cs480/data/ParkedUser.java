@@ -45,10 +45,18 @@ public class ParkedUser {
 	public void setHour(int hour) {
 		this.hour = hour;
 	}
+	
+	public int getHour() {
+		return hour;
+	}
 
 	//set minute to be pick up
 	public void setMinute(int minute) {
 		this.minute = minute;
+	}
+	
+	public int getMinute() {
+		return  minute;
 	}
 	
 	//Time the person with the parking spot is leaving------------------------
@@ -57,7 +65,7 @@ public class ParkedUser {
 	}
 	
 	//return whether the person what to be pick up
-	public boolean isPickup() {
+	public boolean getPickup() {
 		return pickup;
 	}
 
