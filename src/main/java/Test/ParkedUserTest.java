@@ -1,4 +1,4 @@
-package edu.csupomona.cs480;
+package Test;
 
 import static org.junit.Assert.*;
 
