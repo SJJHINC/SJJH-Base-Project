@@ -19,6 +19,8 @@ public class User {
     /** The timestamp when the user is being created */
     private String creationTime = new Date(System.currentTimeMillis()).toString();
 
+    private String estimateLeavingtime;
+    
     public String getId() {
         return id;
     }
@@ -33,6 +35,14 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getLeave() {
+		return estimateLeavingtime;
+	}
+
+	public void setLeave(String time) {
+		this.estimateLeavingtime = time;
 	}
 
 	public String getMajor() {
