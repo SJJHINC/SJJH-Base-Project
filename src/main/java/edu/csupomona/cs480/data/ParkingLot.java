@@ -51,6 +51,10 @@ public class ParkingLot {
 		return null;
 	}
 
+	public User get(int index) {
+		return parkedUsers.get(index);
+	}
+
 	public User getUser(String n, String id) {
 		for (int i = 0; i < parkedUsers.size(); i++) {
 			if (parkedUsers.get(i).getName() == n

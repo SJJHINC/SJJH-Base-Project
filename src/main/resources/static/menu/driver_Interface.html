@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+<title>Popup - Sidebar</title>
+<link rel="stylesheet" href="http://js.arcgis.com/3.12/dijit/themes/claro/claro.css" />
+<link rel="stylesheet" href="http://js.arcgis.com/3.12/esri/css/esri.css" />
+<link rel="stylesheet" href="//js.arcgis.com/3.7/js/esri/css/esri.css">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open Sans">
+
+<style>
+    html, body {
+        height:100%;
+        width:100%;
+        margin:0;
+        padding:0;
+        margin:0;
+        font-family: "Open Sans";
+    }
+    #leftPane {
+        width:20%;
+        margin:0;
+        border:none;
+    }
+    #map {
+        padding:0;
+    }
+    .nav {
+        padding: 5px 10px;
+        background: #4479BA;
+        color: #FFF;
+        border-radius: 5px;
+        border: solid 1px #20538D;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+        -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+
+    }
+    #header {
+        text-align: center;
+        height:60px;
+        border-bottom: solid 1px #ccc;
+    }
+</style>
+    
+<script src="http://js.arcgis.com/3.12/"></script>
+<script>
+    require([
+        "dojo/ready", 
+        "dojo/on",
+        "dojo/_base/connect", 
+        "dojo/dom",
+        "dijit/registry",
+        "dojo/dom-construct",
+        "dojo/parser", 
+        "dijit/layout/BorderContainer", 
+        "dijit/layout/ContentPane", 
+        "esri/map",
+        "esri/arcgis/utils",
+        "esri/domUtils",
+        "esri/dijit/Popup",
+        
+    
+        "esri/geometry/Point",
+        "esri/symbols/SimpleMarkerSymbol",
+        "esri/graphic", 
+        "esri/layers/GraphicsLayer",
+        "dojo/domReady!"
+        
+    ], function(
+        ready, 
+        on, 
+        connect,
+        dom,
+        registry,
+        domConstruct,
+        parser, 
+        BorderContainer, 
+        ContentPane,
+        Map,
+        arcgisUtils,
+        domUtils,
+        
+         Point, SimpleMarkerSymbol, Graphic, GraphicsLayer,
+        
+        Popup
+    ) {
+        ready(function(){
+
+            parser.parse();
+
+            //setup event handlers for the next/previous buttons
+            on(dom.byId("previous"), "click", selectPrevious);
+            on(dom.byId("next"), "click", selectNext);
+  
+            var map = new Map("map", {
+        basemap: "hybrid",
+
+        center: [-117.820663, 34.057027],
+        minZoom : 15,
+        maxZoom : 17,
+
+        zoom: 16
+      });
+      
+       window.map = map;
+      map.infoWindow.set("popupWindow", false);
+      
+      initializeSidebar(window.map);
+      
+      map.on("load", function() { 
+        ShowLocation(-117.816986, 34.060226,"Parking Structure","./images/p.png"); // Parking Structure
+        ShowLocation(-117.8172, 34.058946,"F8","./images/f.png"); // F8
+     
+        ShowLocation(-117.815178,  34.06085,"F5,F9,F10","./images/f.png"); //F5,F9,F10
+        ShowLocation(-117.816841,  34.061561,"F2,F3,F4","./images/f.png");// f3,f4,f2
+    
+        ShowLocation(-117.828932,  34.057802,"J","./images/j.png"); // J
+        ShowLocation(-117.829933,  34.05553,"M","./images/m.png"); // M
+        
+        ShowLocation(-117.819255, 34.051668,"K-Close","./images/k.png"); // K-Close
+        ShowLocation(-117.817495, 34.050984,"K-Far","./images/k.png"); // K-far
+        
+        ShowLocation(-117.815961, 34.051819,"B-Far","./images/b.png"); // b far
+        ShowLocation(-117.814738, 34.053446,"B-Close","./images/b.png"); // b close
+        
+        
+        ShowLocation(-117.816938, 34.054886,"Q","./images/q.png"); //Q
+
+
+        ShowLocation(-117.82131, 34.063624 ,"ten","./images/10.png"); //10fwy
+        ShowLocation( -117.821497, 34.057845 ,"library","./images/library.png"); //Q
+
+        
+  
+        
+      });
+
+      function ShowLocation(x, y,information,picture) {
+        
+          var point = new esri.geometry.Point(x, y, new esri.SpatialReference({wkid:4326}));
+
+       
+          //var simpleMarkerSymbol = new esri.symbol.PictureMarkerSymbol(picture, 51, 51);
+            if(information == "library"){
+            var simpleMarkerSymbol = new esri.symbol.PictureMarkerSymbol(picture, 140, 41);
+          }
+          else{
+            var simpleMarkerSymbol = new esri.symbol.PictureMarkerSymbol(picture, 51, 51);
+          }
+      
+;
+         
+          if(information == "Parking Structure"){
+            simpleMarkerSymbol.setColor(new esri.Color([0,255,0,255]));
+          }
+          else{
+            simpleMarkerSymbol.setColor(new esri.Color([255,0,0,0.5]));
+          }
+          var infoTemplate = new esri.InfoTemplate(information, "select");
+          var graphic = new esri.Graphic(point, simpleMarkerSymbol,null,infoTemplate);
+          var thisgraphic = map.graphics.add(graphic);
+          
+      }
+      
+
+            function initializeSidebar(map){
+
+
+                var popup = map.infoWindow;
+
+                //when the selection changes update the side panel to display the popup info for the 
+                //currently selected feature. 
+                connect.connect(popup, "onSelectionChange", function(){
+                    displayPopupContent(popup.getSelectedFeature());
+                });
+
+                //when the selection is cleared remove the popup content from the side panel. 
+                connect.connect(popup, "onClearFeatures", function(){
+                    //dom.byId replaces dojo.byId
+                    dom.byId("featureCount").innerHTML = "Click To View Parking Spots";
+
+                    //registry.byId replaces dijit.byId
+                    registry.byId("leftPane").set("content", "");
+                    domUtils.hide(dom.byId("pager"));
+                });
+
+                //When features are associated with the  map's info window update the sidebar with the new content. 
+                connect.connect(popup, "onSetFeatures", function(){
+                    displayPopupContent(popup.getSelectedFeature());
+                    
+
+
+                    //enable navigation if more than one feature is selected 
+                    popup.features.length > 1 ? domUtils.show(dom.byId("pager")) : domUtils.hide(dom.byId("pager"));
+                });
+            }
+
+            function displayPopupContent(feature){
+
+                if(feature){
+
+                    var title = feature.getTitle();   // this gets the title of the circle graphic
+                  
+                    if(title == "Parking Structure"){
+                       
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in PS";
+                        registry.byId("leftPane").set("content", content);
+
+                        var listOfParkings = "Parking Structure";
+                        dom.byId("featureCount").innerHTML = listOfParkings;
+                    }
+                    else if(title == "F8"){
+                       
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in F8";
+                        registry.byId("leftPane").set("content", content);
+
+                        var listOfParkings = "F8";
+                        dom.byId("featureCount").innerHTML = listOfParkings;
+                    }
+                    else if(title == "F5,F9,F10"){
+                       
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in F5,F9,F10";
+                        registry.byId("leftPane").set("content", content);
+
+                        var listOfParkings = "F5,F9,F10";
+                        dom.byId("featureCount").innerHTML = listOfParkings;
+                    }
+                    else if(title == "F2,F3,F4"){
+                       
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in F2,F3,F4";
+                        registry.byId("leftPane").set("content", content);
+
+                        var listOfParkings = "F2,F3,F4";
+                        dom.byId("featureCount").innerHTML = listOfParkings;
+                    }
+                    else if(title == "J"){
+                       
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in J";
+                        registry.byId("leftPane").set("content", content);
+
+                        var listOfParkings = "J";
+                        dom.byId("featureCount").innerHTML = listOfParkings;
+                    }
+                    else if(title == "M"){
+                       
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in M";
+                        registry.byId("leftPane").set("content", content);
+
+                        var listOfParkings = "M";
+                        dom.byId("featureCount").innerHTML = listOfParkings;
+                    }
+                     else if(title == "K-Close"){
+                       
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in K-Close";
+                        registry.byId("leftPane").set("content", content);
+
+                        var listOfParkings = "K-Close";
+                        dom.byId("featureCount").innerHTML = listOfParkings;
+                    }
+                     else if(title == "K-Far"){
+                       
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in K-Far";
+                        registry.byId("leftPane").set("content", content);
+
+                        var listOfParkings = "K-Far";
+                        dom.byId("featureCount").innerHTML = listOfParkings;
+                    }
+                     else if(title == "B-Close"){
+                       
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in B-Close";
+                        registry.byId("leftPane").set("content", content);
+
+                        var listOfParkings = "B-Close";
+                        dom.byId("featureCount").innerHTML = listOfParkings;
+                    }
+                     else if(title == "B-Far"){
+                       
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in B-Far";
+                        registry.byId("leftPane").set("content", content);
+
+                        var listOfParkings = "B-Far";
+                        dom.byId("featureCount").innerHTML = listOfParkings;
+                    }
+                     else if(title == "Q"){
+                       
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Q";
+                        registry.byId("leftPane").set("content", content);
+
+                        var listOfParkings = "Q";
+                        dom.byId("featureCount").innerHTML = listOfParkings;
+                    }
+                    else{
+                        var content =  dom.byId("leftPane").innerHTML = "";
+                        registry.byId("leftPane").set("content", content);
+
+                        var listOfParkings = "Click To View Parking Spots";
+                        dom.byId("featureCount").innerHTML = listOfParkings;
+                    }
+
+                   
+                
+
+
+
+                }
+            }
+
+            function selectPrevious(){
+                window.map.infoWindow.selectPrevious();
+            }
+
+            function selectNext(){
+                window.map.infoWindow.selectNext();
+            }
+        });
+    });
+</script>
+</head>
+
+<body class="claro">
+<div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" 
+    data-dojo-props="design:'headline',gutters:false" 
+    style="width:100%; height:100%;">
+    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false" 
+        region="left" style="width: 20%;height:100%;">
+        <div id="leftPane" data-dojo-type="dijit/layout/ContentPane" 
+            data-dojo-props="region:'center'"></div>
+        <div id="header" data-dojo-type="dijit/layout/ContentPane" 
+            data-dojo-props="region:'top'">
+            <div id="featureCount" style="margin-bottom:5px;">Click To View Parking Spots</div>
+            <div id="pager" style="display:none;"> 
+                <a href='javascript:void(0);' id ="previous" class='nav' style="text-decoration: none;">
+                    &lt; Prev
+                </a>
+                &nbsp; 
+                <a href='javascript:void(0);' id="next" class='nav'  style="text-decoration: none;">
+                    Next &gt;
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
+</div>
+</body>
+
+</html> 

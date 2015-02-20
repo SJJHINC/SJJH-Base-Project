@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.csupomona.cs480.data.ParkedUser;
+import edu.csupomona.cs480.data.ParkingLotManager;
 import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.UserNeedSpace;
 import edu.csupomona.cs480.data.provider.ParkSpaceManager;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.data.provider.UserNeedSpaceManager;
+
 
 
 
@@ -60,6 +62,8 @@ public class WebController {
     @Autowired
     private UserManager userManager;
     private User currentUser;
+    private ParkingLotManager PL;
+    
     private ParkSpaceManager parkSpaceManager = new ParkSpaceManager();
     private ParkedUser currentParkedUser;
     private UserNeedSpaceManager userNeedSpaceManager = new UserNeedSpaceManager();
@@ -143,6 +147,14 @@ public class WebController {
     	User user = userManager.getUser(userId);
         return user;
     }
+    
+    @RequestMapping(value = "/firstUserTest/{lotNumber}", method = RequestMethod.GET)
+    User getFirstUserFromLot(@PathVariable("lotNumber") String ln) {
+    	User user = PL.getFirstUser(ln);
+        return user;
+    }
+
+    
 
     /**
      * This is an example of sending an HTTP POST request to
