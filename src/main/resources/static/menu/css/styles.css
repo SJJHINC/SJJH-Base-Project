@@ -46,6 +46,16 @@ h1 {
   color: #00512b;
   text-shadow: 1px 1px 0 #fff;
 }
+h2 {
+  display: block;
+  font-size: 3.1em;
+  line-height: 1.45em;
+  font-family: 'Laila', serif;
+  text-align: center;
+  font-weight: bold;
+  color: #00512b;
+  text-shadow: 1px 1px 0 #fff;
+}
 
 
 /** form field **/
