@@ -109,6 +109,25 @@ label > input {
   opacity: .6;
   transition: all linear .3s;
 }
+text area
+{
+width: 300%;
+  display: inline-block;
+  position: relative;
+
+  height: 27px;
+  line-height: 27px;
+  margin: 5px -5px 0;
+  padding: 7px 5px 3px;
+  border: none;
+  outline: none;
+  color: #555;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  opacity: .6;
+  transition: all linear .3s;
+}
 
 .col-submit {
   text-align: center;
@@ -126,7 +145,7 @@ label > select {
   border: none;
   outline: none;
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-size: 14px;
+  font-size: 10px;
   opacity: .4;
   transition: all linear .3s;
 }
