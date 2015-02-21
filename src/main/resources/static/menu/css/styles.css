@@ -109,12 +109,11 @@ label > input {
   opacity: .6;
   transition: all linear .3s;
 }
-text area
+textarea
 {
 width: 300%;
   display: inline-block;
   position: relative;
-
   height: 27px;
   line-height: 27px;
   margin: 5px -5px 0;
