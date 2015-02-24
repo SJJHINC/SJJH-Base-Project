@@ -43,4 +43,12 @@ public class ResourceResolver {
     	}
     	return file3;
     }
+    public static File getMessageFile(){
+    	File file4 = new File(BASE_DIR + "/" + "message-map.json");
+    	System.out.println(file4.getAbsolutePath());
+    	if(!file4.getParentFile().exists()){
+    		file4.getParentFile().mkdirs();
+    	}
+    	return file4;
+    }
 }

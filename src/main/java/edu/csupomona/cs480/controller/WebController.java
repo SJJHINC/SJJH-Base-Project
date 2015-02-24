@@ -16,9 +16,11 @@ import edu.csupomona.cs480.data.ParkedUser;
 import edu.csupomona.cs480.data.ParkingLotManager;
 import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.UserNeedSpace;
+import edu.csupomona.cs480.data.provider.MessageManager;
 import edu.csupomona.cs480.data.provider.ParkSpaceManager;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.data.provider.UserNeedSpaceManager;
+
 
 
 
@@ -61,6 +63,7 @@ public class WebController {
 	 */
     @Autowired
     private UserManager userManager;
+    private MessageManager messageManager;
     private User currentUser;
     private ParkingLotManager PL;
     
@@ -242,8 +245,13 @@ public class WebController {
     	user.setHour(hour);
     	user.setMinute(minute);
     	user.setPickUpBuildingNum(buildingNum);
-    	parkSpaceManager.updateUser(user);
+    	parkSpaceManager.updateParkedSpace(user);
     	return user;
+    }
+    @RequestMapping(value = "/cs480/parkedUser/delete/{postId}", method=RequestMethod.DELETE)
+    void deleteParkedSpace(
+    		@PathVariable("postId") String postId) {
+    	parkSpaceManager.deleteParkedSpace(postId);
     }
 
 //-------------------------user that need a parking space--------------------------------
@@ -265,6 +273,11 @@ public class WebController {
     	user.setMinute(minute);
     	userNeedSpaceManager.updateUser(user);
     	return user;
+    }
+    @RequestMapping(value = "/cs480/userNeedSpace/delete/{postId}", method=RequestMethod.DELETE)
+    void deleteUserNeedSpace(
+    		@PathVariable("postId") String postId) {
+    	messageManager.deleteMessage(postId);
     }
 
 ///////////////////////////////////////////////////////////////////////////////AS6

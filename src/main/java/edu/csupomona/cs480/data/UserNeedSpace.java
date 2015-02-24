@@ -1,6 +1,7 @@
 package edu.csupomona.cs480.data;
 
 public class UserNeedSpace {
+	private String postId;
 	private String userName;
 	private int hour;
 	private int minute;
@@ -49,6 +50,14 @@ public class UserNeedSpace {
 		//set the contact information
 		public void setContactInfo(String contactInfo) {
 			this.contactInfo = contactInfo;
+		}
+
+		public String getPostId() {
+			return postId;
+		}
+
+		public void setPostId(String postId) {
+			this.postId = postId;
 		}
 		
 }

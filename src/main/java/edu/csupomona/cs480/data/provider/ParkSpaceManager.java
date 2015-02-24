@@ -59,7 +59,7 @@ public class ParkSpaceManager {
 	 *
 	 * @param userMap
 	 */
-	private void persistUserMap(ParkedUserMap parkedUserMap) {
+	private void persistParkedSpace(ParkedUserMap parkedUserMap) {
 		try {
 			// convert the parkeduser object to JSON format
             JSON.writeValue(ResourceResolver.getParkedUserFile(), parkedUserMap);
@@ -69,23 +69,23 @@ public class ParkSpaceManager {
 	}
 
 	
-	public ParkedUser getUser(String name) {
+	public ParkedUser getParkedSpace(String name) {
 		ParkedUserMap parkedUserMap = getParkedUserMap();
         return parkedUserMap.get(name);
 	}
 
 	
-	public void updateUser(ParkedUser parkedUser ) {
+	public void updateParkedSpace(ParkedUser parkedUser ) {
 		ParkedUserMap parkedUserMap = getParkedUserMap();
 		parkedUserMap.put(parkedUser.getUserName(), parkedUser);
-		persistUserMap(parkedUserMap);
+		persistParkedSpace(parkedUserMap);
 	}
 
 	
-	public void deleteUser(String userId) {
+	public void deleteParkedSpace(String userId) {
 		ParkedUserMap parkedUserMap = getParkedUserMap();
 		parkedUserMap.remove(userId);
-		persistUserMap(parkedUserMap);
+		persistParkedSpace(parkedUserMap);
 	}
 
 	

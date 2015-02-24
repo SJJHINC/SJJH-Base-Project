@@ -3,6 +3,7 @@ package edu.csupomona.cs480.data;
 import java.util.Set;
 
 public class ParkedUser {
+	private String postId;
 	private String userName;
 	private int pickUpBuildingNum;
 	private int hour;
@@ -82,6 +83,14 @@ public class ParkedUser {
 	//set the contact information
 	public void setContactInfo(String contactInfo) {
 		this.contactInfo = contactInfo;
+	}
+
+	public String getPostId() {
+		return postId;
+	}
+
+	public void setPostId(String postId) {
+		this.postId = postId;
 	}
 	
 }
