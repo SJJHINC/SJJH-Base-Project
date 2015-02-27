@@ -13,13 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.csupomona.cs480.data.ParkedUser;
+import edu.csupomona.cs480.data.ParkingLot;
 import edu.csupomona.cs480.data.ParkingLotManager;
+import edu.csupomona.cs480.data.ParkingLotManagerSingleton;
 import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.UserNeedSpace;
 import edu.csupomona.cs480.data.provider.MessageManager;
 import edu.csupomona.cs480.data.provider.ParkSpaceManager;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.data.provider.UserNeedSpaceManager;
+
+
 
 
 
@@ -88,7 +92,7 @@ public class WebController {
     }
     
     
-    ///Jeremiahs test.
+    ///default method for creating and filling in parkinglots. Should only be run once
     @RequestMapping(value = "/cs480/commonsTest", method = RequestMethod.GET)
     String commons() {
     	StopWatch st = new StopWatch();
@@ -96,6 +100,25 @@ public class WebController {
     	st.getStartTime();
     	st.stop();
     	return "timer used";
+    	
+    	
+    	
+    }
+    @RequestMapping(value = "/cs480/SingletonTest", method = RequestMethod.GET)
+    String Singletontest() {
+    	
+    	ParkingLotManagerSingleton plm = ParkingLotManagerSingleton.getInstance();
+    	ParkingLot p = new ParkingLot("Lot 8");
+    	ParkingLot p1 = new ParkingLot("Lot 9");
+    	ParkingLot p2 = new ParkingLot("Lot 10");
+    	ParkingLot p3 = new ParkingLot("Lot 11");
+    	plm.addLot(p);
+    	plm.addLot(p1);
+    	plm.addLot(p2);
+    	plm.addLot(p3);
+    	plm.printLots();
+    	
+    	return "\nPrinted Lots";
     	
     	
     	
