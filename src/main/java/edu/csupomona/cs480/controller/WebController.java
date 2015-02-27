@@ -68,6 +68,7 @@ public class WebController {
     @Autowired
     private UserManager userManager;
     private MessageManager messageManager;
+    
     private User currentUser;
     private ParkingLotManager PL;
     
@@ -92,14 +93,34 @@ public class WebController {
     }
     
     
-    ///default method for creating and filling in parkinglots. Should only be run once
-    @RequestMapping(value = "/cs480/commonsTest", method = RequestMethod.GET)
+    ///For now, this method will create the parkingLotManager
+    @RequestMapping(value = "/fill", method = RequestMethod.GET)
     String commons() {
-    	StopWatch st = new StopWatch();
-    	st.start();
-    	st.getStartTime();
-    	st.stop();
-    	return "timer used";
+    	PL = new ParkingLotManager();
+    	ParkingLot j = new ParkingLot("Lot J");
+    	ParkingLot m = new ParkingLot("Lot M");
+    	ParkingLot f234 = new ParkingLot("Lot F2, F3, F4");
+    	ParkingLot f5910 = new ParkingLot("Lot F5, F9, F10");
+    	ParkingLot p = new ParkingLot("Parking Structure");
+    	ParkingLot f8 = new ParkingLot("Lot F8");
+    	ParkingLot q = new ParkingLot("Lot Q");
+    	ParkingLot bclose = new ParkingLot("Lot B-Close");
+    	ParkingLot bfar = new ParkingLot("Lot B-Far");
+    	ParkingLot kclose = new ParkingLot("Lot K-Close");
+    	ParkingLot kfar = new ParkingLot("Lot K-Far");
+    	PL.addLot(j);
+    	PL.addLot(m);
+    	PL.addLot(f234);
+    	PL.addLot(f5910);
+    	PL.addLot(p);
+    	PL.addLot(f8);
+    	PL.addLot(q);
+    	PL.addLot(bclose);
+    	PL.addLot(bfar);
+    	PL.addLot(kclose);
+    	PL.addLot(kfar);
+		return "\nAdded Lots";
+    	
     	
     	
     	
