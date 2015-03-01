@@ -138,6 +138,39 @@
         
       });
 
+     //----------------------------------AJAX HTTP REQUEST -------------------------
+     function loadXMLDoc(ParkingLotName)
+    {
+        
+         var xmlhttp;
+         if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+               
+            }
+        else
+            {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+        xmlhttp.onreadystatechange=function()
+            {
+               
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    alert(ParkingLotName);
+                    
+                    document.getElementById("leftPane").innerHTML=xmlhttp.responseText;
+                }
+            }
+
+        xmlhttp.open("GET","http://www.w3schools.com/XML/cd_catalog.xml",true);
+        xmlhttp.send();
+    }
+
+
+     //---------------------------------------------
+
+
       function ShowLocation(x, y,information,picture) {
         
           var point = new esri.geometry.Point(x, y, new esri.SpatialReference({wkid:4326}));
@@ -202,10 +235,11 @@
 
                 if(feature){
 
+
                     var title = feature.getTitle();   // this gets the title of the circle graphic
                   
                     if(title == "Parking Structure"){
-                       
+                        loadXMLDoc("Parking Structure");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in PS";
                         registry.byId("leftPane").set("content", content);
 
@@ -213,7 +247,7 @@
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
                     else if(title == "F8"){
-                       
+                        loadXMLDoc("F8");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in F8";
                         registry.byId("leftPane").set("content", content);
 
@@ -221,7 +255,7 @@
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
                     else if(title == "F5,F9,F10"){
-                       
+                        loadXMLDoc("F5,F9,F10");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in F5,F9,F10";
                         registry.byId("leftPane").set("content", content);
 
@@ -229,7 +263,7 @@
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
                     else if(title == "F2,F3,F4"){
-                       
+                        loadXMLDoc("F2,F3,F4");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in F2,F3,F4";
                         registry.byId("leftPane").set("content", content);
 
@@ -237,7 +271,7 @@
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
                     else if(title == "J"){
-                       
+                        loadXMLDoc("J");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in J";
                         registry.byId("leftPane").set("content", content);
 
@@ -245,7 +279,7 @@
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
                     else if(title == "M"){
-                       
+                        loadXMLDoc("M");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in M";
                         registry.byId("leftPane").set("content", content);
 
@@ -253,7 +287,7 @@
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
                      else if(title == "K-Close"){
-                       
+                        loadXMLDoc("K-Close");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in K-Close";
                         registry.byId("leftPane").set("content", content);
 
@@ -261,7 +295,7 @@
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
                      else if(title == "K-Far"){
-                       
+                        loadXMLDoc("K-Far");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in K-Far";
                         registry.byId("leftPane").set("content", content);
 
@@ -269,7 +303,7 @@
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
                      else if(title == "B-Close"){
-                       
+                        loadXMLDoc("B-Close");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in B-Close";
                         registry.byId("leftPane").set("content", content);
 
@@ -277,7 +311,7 @@
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
                      else if(title == "B-Far"){
-                       
+                        loadXMLDoc("B-Far");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in B-Far";
                         registry.byId("leftPane").set("content", content);
 
@@ -285,7 +319,7 @@
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
                      else if(title == "Q"){
-                       
+                        loadXMLDoc("Q");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Q";
                         registry.byId("leftPane").set("content", content);
 
