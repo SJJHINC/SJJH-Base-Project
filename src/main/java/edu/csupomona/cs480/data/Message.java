@@ -13,12 +13,22 @@ public class Message {
 	private String messageTitle;
 	private ArrayList<String> username;
 	private ArrayList<String> committ;
+	private static Message messageObject;
 	
 	private Message(){
 		username = new ArrayList<String>();
 		committ = new ArrayList<String>();
 	}
-
+	public static Message getMessageObject(){
+		if(messageObject == null){
+			messageObject = new Message();
+		}
+		return messageObject;
+	} 
+	
+	public Object clone() throws CloneNotSupportedException{
+		throw new CloneNotSupportedException();
+	}
 	public ArrayList<String> getUsername() {
 		return username;
 	}
