@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html">
-  <title>CPP-Pickup | Pickup</title>
+  <title>Horizontal Application Form - Template Monster Demo</title>
   <meta name="author" content="Jake Rocheleau">
   <link rel="shortcut icon" href="http://static.tmimgcdn.com/img/favicon.ico">
   <link rel="icon" href="http://static.tmimgcdn.com/img/favicon.ico">
@@ -16,14 +16,7 @@
   <div id="wrapper">
   
   <h1>C~P~Pickup</h1>
- <!-- 
-  JUST SOME EXAMPLE FOR SUBMITITNG
-<form action="demo_form.asp" method="get">
-  First name: <input type="text" name="fname"><br>
-  Last name: <input type="text" name="lname"><br>
-  <input type="submit" value="Submit">
-</form>
--->
+
   <form id= "myForm" action="PickupList.txt" method="get">
   <div class="col-2">
     <label>
@@ -91,10 +84,11 @@
       I Have A Parking Spot At
       <select tabindex="5" name="ParkingLocation" id="parkingLot">
         <option value="Parking Structure">Parking Structure</option>
-        <option value="B">B : East of Parking Lot K.</option>
+        <option value="B-Close">B : East of Parking Lot K [Closer To Kellogg Dr].</option>
+        <option value="B-Far ">B : East of Parking Lot K [Closer To W Temple].</option>
         <option value="E1">E1 : NorthEast of Parking Lot E2.</option>
         <option value="E2 ">E2 : NorthWest of Interim Design Center (Bldg. 89).</option>
-        <option value="F1 ">F1 : SouthEast of Residence Hall, Aliso (Bldg. 23).</option>
+        
         <option value="F2">F2 : South of Residence Hall, Alamitos (Bldg. 22)</option>
         <option value="F3">F3 : North of Parking Lot F4 and South of Recreation/Maintenance</option>
         <option value="F4">F4 : North of Parking Structure (Bldg. 106).</option>
@@ -103,9 +97,9 @@
         <option value="F9">F9 : South of Parking Structure (Bldg. 106).</option>
         <option value="F10">F10 : East of Police and Parking Services (Bldg. 109).</option>
         <option value="J ">J : West of College of Environmental Design (Bldg. 7) and NorthWest of Health Services (Bldg. 46).</option>
-        <option value="K">K : SouthEast of I Poly High School (Bldg. 128).</option>
+        <option value="K - Close">K : SouthEast of I Poly High School [Closer to IPoly] .</option>
+        <option value="K - Far">K : SouthEast of I Poly High School [Closer to S.Campus].</option>
         <option value="M">M : South of Parking Lot J and South West of College of Environmental Design (Bldg. 7).</option>
-        <option value="P">P : East of Residence Suites (Bldg. 60).</option>
         <option value="Q">Q : East of Residence Suites (Bldg. 60).</option>
         
 
@@ -130,23 +124,48 @@
   </form>
   </div>
 <script type="text/javascript">
-function submitInfoFunction()
-    { 
-      // Here we will submit info
-
-     var inputName = document.getElementById("name").value;
-     var inputBuilding = document.getElementById("building").value;
-     var inputParkingLot = document.getElementById("parkingLot").value;
-     var inputTime = document.getElementById("time").value;
 
 
-     alert("User Name : " +inputName+ "\n" +"Building : "+inputBuilding+ "\n" +
-            "ParkingLot : "+inputParkingLot + "\n" + "Time :"+inputTime);
+function isValidTime (value){
+ 
+      // regular expression for time
+      re = /^(0?[1-9]|1[012])(:[0-5]\d)/;
 
-      document.getElementById("myForm").submit();
-        
-       alert("Hello From submit");
-               
+      // validate if it matches
+      if(!value.match(re)) {
+        alert("Invalid time format: " + value);
+        return false;
+      }
+     
+      return true;
+
+}
+function submitInfoFunction(){ 
+
+       // Here we will submit info
+       var inputName = document.getElementById("name").value;
+       var inputBuilding = document.getElementById("building").value;
+       var inputParkingLot = document.getElementById("parkingLot").value;
+       var inputTime = document.getElementById("time").value;
+
+       
+       // input validation for Name
+       if(inputName.trim() == "" || inputTime.trim() == "" ){
+          alert("Invalid Name or Time! One of these fields are empty.");   
+          return;
+       }
+
+       // input validation for Time
+       if(!isValidTime(inputTime)){
+            return;
+       }
+
+       //submit form and alert for debugging purposes
+       document.getElementById("myForm").submit();
+
+        alert("User Name : " +inputName+ "\n" +"Building : "+inputBuilding+ "\n" +
+              "ParkingLot : "+inputParkingLot + "\n" + "Time :"+inputTime + "\nHas been submitted.");
+              
     }
 
 var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
