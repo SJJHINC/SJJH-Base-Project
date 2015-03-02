@@ -12,11 +12,10 @@ import edu.csupomona.cs480.data.UserMap;
 import edu.csupomona.cs480.util.ResourceResolver;
 
 /**
- * The implementation of {@link UserManager} interface
- * using file system.
+ * The implementation of {@link UserManager} interface using file system.
  * <p>
- * This class demonstrates how you can use the file system
- * as a database to store your data.
+ * This class demonstrates how you can use the file system as a database to
+ * store your data.
  *
  */
 public class FSUserManager implements UserManager {
@@ -25,7 +24,8 @@ public class FSUserManager implements UserManager {
 	 * We persist all the user related objects as JSON.
 	 * <p>
 	 * For more information about JSON and ObjectMapper, please see:
-	 * http://www.journaldev.com/2324/jackson-json-processing-api-in-java-example-tutorial
+	 * http://www.journaldev
+	 * .com/2324/jackson-json-processing-api-in-java-example-tutorial
 	 *
 	 * or Google tons of tutorials
 	 *
@@ -40,18 +40,18 @@ public class FSUserManager implements UserManager {
 	private UserMap getUserMap() {
 		UserMap userMap = null;
 		File userFile = ResourceResolver.getUserFile();
-        if (userFile.exists()) {
-        	// read the file and convert the JSON content
-        	// to the UserMap object
-            try {
+		if (userFile.exists()) {
+			// read the file and convert the JSON content
+			// to the UserMap object
+			try {
 				userMap = JSON.readValue(userFile, UserMap.class);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-        } else {
-        	userMap = new UserMap();
-        }
-        return userMap;
+		} else {
+			userMap = new UserMap();
+		}
+		return userMap;
 	}
 
 	/**
@@ -62,22 +62,22 @@ public class FSUserManager implements UserManager {
 	private void persistUserMap(UserMap userMap) {
 		try {
 			// convert the user object to JSON format
-            JSON.writeValue(ResourceResolver.getUserFile(), userMap);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+			JSON.writeValue(ResourceResolver.getUserFile(), userMap);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public User getUser(String userId) {
 		UserMap userMap = getUserMap();
-        return userMap.get(userId);
+		return userMap.get(userId);
 	}
 
 	@Override
 	public void updateUser(User user) {
 		UserMap userMap = getUserMap();
-		userMap.put(user.getId(), user);
+		// userMap.put(user.getId(), user);
 		persistUserMap(userMap);
 	}
 

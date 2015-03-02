@@ -40,28 +40,12 @@ public class ParkingLot {
 		}
 	}
 
-	public String getUserName(String n, String id) {
-		for (int i = 0; i < parkedUsers.size(); i++) {
-			if (parkedUsers.get(i).getName() == n
-					&& parkedUsers.get(i).getId() == id) {
-				return parkedUsers.get(i).getName();
-			}
-
-		}
-		return null;
-	}
-
 	public User get(int index) {
 		return parkedUsers.get(index);
 	}
 
-	public User getUser(String n, String id) {
-		for (int i = 0; i < parkedUsers.size(); i++) {
-			if (parkedUsers.get(i).getName() == n
-					&& parkedUsers.get(i).getId() == id) {
-				return parkedUsers.get(i);
-			}
-		}
-		return null;
+	public List<User> getUserList() {
+		return parkedUsers;
+
 	}
 }

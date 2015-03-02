@@ -2,32 +2,20 @@ package edu.csupomona.cs480.data;
 
 import java.util.Date;
 
-
 /**
  * The basic user object.
  */
 public class User {
 
-	/** The unique user Id */
-    private String id;
-    /** The unique password */
-    private String password;
-    /** The unique user Id */
-    private String name;
-    /** The unique user Id */
-    private String major;
-    /** The timestamp when the user is being created */
-    private String creationTime = new Date(System.currentTimeMillis()).toString();
+	private String name;
+	private String building;
+	private String estimateLeavingtime;
 
-    private String estimateLeavingtime;
-    
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+	public User(String name, String building, String time) {
+		this.name = name;
+		this.building = building;
+		this.estimateLeavingtime = time;
+	}
 
 	public String getName() {
 		return name;
@@ -36,7 +24,7 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getLeave() {
 		return estimateLeavingtime;
 	}
@@ -45,27 +33,4 @@ public class User {
 		this.estimateLeavingtime = time;
 	}
 
-	public String getMajor() {
-		return major;
-	}
-
-	public void setMajor(String major) {
-		this.major = major;
-	}
-
-	public String getCreationTime() {
-		return creationTime;
-	}
-
-	public void setCreationTime(String creationTime) {
-		this.creationTime = creationTime;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 }

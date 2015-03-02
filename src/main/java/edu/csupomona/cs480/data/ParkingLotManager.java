@@ -34,5 +34,10 @@ public class ParkingLotManager {
 	public void addLot(ParkingLot p) {
 		calpoly.add(p);
 	}
+	
+	public List<User> getUserList(String ln){
+		int index = lotLocation(ln);
+		return calpoly.get(index).getUserList();	
+	}
 
 }
