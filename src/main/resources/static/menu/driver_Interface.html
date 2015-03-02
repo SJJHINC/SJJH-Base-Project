@@ -155,8 +155,10 @@
         xmlhttp.onreadystatechange=function()
             {
 
-                alert(xmlhttp.readyState);
-                 alert(xmlhttp.status);
+                // anything else and the State is not ready
+                alert("xmlhttp.readyState - should be 4 to continue :"+xmlhttp.readyState);
+                // status 200 is ok, 404 is not found
+                alert("mlhttp.status - should be 200 to continue : "+xmlhttp.status);
 
                
                 if (xmlhttp.readyState==4 && xmlhttp.status==200)
