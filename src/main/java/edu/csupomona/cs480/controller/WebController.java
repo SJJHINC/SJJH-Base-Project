@@ -151,7 +151,7 @@ public class WebController {
 	}
 
 	// The list of people in a certain parking lot
-	@RequestMapping(value = "/get/{lot}", method = RequestMethod.POST)
+	@RequestMapping(value = "/get/{lot}", method = RequestMethod.GET)
 	List<User> getUsers(@PathVariable("lot") String lot) {
 
 		return PL.getUserList(lot);
