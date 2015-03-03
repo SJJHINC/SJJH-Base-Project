@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html">
+  <title>CPP-Pickup | Registeration</title>
+  <meta name="author" content="Jake Rocheleau">
+  <link rel="shortcut icon" href="http://static.tmimgcdn.com/img/favicon.ico">
+  <link rel="icon" href="http://static.tmimgcdn.com/img/favicon.ico">
+  <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
+  <link rel="stylesheet" type="text/css" media="all" href="css/switchery.min.css">
+  <script type="text/javascript" src="js/switchery.min.js"></script>
+</head>
+
+<body  background="Pomona_Campus.jpg">>
+  <div id="wrapper">
+  
+  <h1>Join us for better parking in CPP!</h1>
+  
+  <form onsubmit="return false">
+ 
+  <div class="col-2">
+  <label>
+      Name
+      <input placeholder="Enter a name" id="name" name="name" tabindex="1">
+    </label>
+  </div>
+  
+ <div class="col-2">
+  <label>
+      Bronco Email
+      <input placeholder="Enter your Email" id="email" name="email" tabindex="2">
+    </label>
+  </div>
+  
+  <div class="col-2">
+  <label>
+      Bronco ID
+      <input placeholder="Enter your Bronco ID" id="id" name="id" tabindex="3">
+    </label>
+  </div>
+  
+    <div class="col-2">
+  <label>
+      Major
+      <input placeholder="Enter your Major" id="major" name="major" tabindex="4">
+    </label>
+  </div>
+    <div class="col-2">
+   <label>
+      Password
+      <input placeholder="Enter your Password" id="password" name="password" tabindex="5">
+    </label>
+  </div>
+  
+    <div class="col-2">
+   <label>
+      Re-enter Password
+      <input placeholder="Re-enter your Password" id="password2" name="password2" tabindex="6">
+    </label>
+  </div>
+  <div class="col-submit">
+    <button class="submitbtn">Register </button>
+  </div>
+  
+  </form>
+  </div>
+<script type="text/javascript">
+var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+elems.forEach(function(html) {
+  var switchery = new Switchery(html);
+});
+</script>
+</body>
+</html>
