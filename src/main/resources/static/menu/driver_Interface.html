@@ -112,22 +112,22 @@
       
       map.on("load", function() { 
         ShowLocation(-117.816986, 34.060226,"Parking Structure","./images/p.png"); // Parking Structure
-        ShowLocation(-117.8172, 34.058946,"F8","./images/f.png"); // F8
+        ShowLocation(-117.8172, 34.058946,"Lot F8","./images/f.png"); // Lot F8
      
-        ShowLocation(-117.815178,  34.06085,"F5,F9,F10","./images/f.png"); //F5,F9,F10
-        ShowLocation(-117.816841,  34.061561,"F2,F3,F4","./images/f.png");// f3,f4,f2
+        ShowLocation(-117.815178,  34.06085,"Lot F5, F9, F10","./images/f.png"); //Lot F5, F9, F10
+        ShowLocation(-117.816841,  34.061561,"Lot F2, F3, F4","./images/f.png");// f3,f4,f2
     
-        ShowLocation(-117.828932,  34.057802,"J","./images/j.png"); // J
-        ShowLocation(-117.829933,  34.05553,"M","./images/m.png"); // M
+        ShowLocation(-117.828932,  34.057802,"Lot J","./images/j.png"); // J
+        ShowLocation(-117.829933,  34.05553,"Lot M","./images/m.png"); // M
         
-        ShowLocation(-117.819255, 34.051668,"K-Close","./images/k.png"); // K-Close
-        ShowLocation(-117.817495, 34.050984,"K-Far","./images/k.png"); // K-far
+        ShowLocation(-117.819255, 34.051668,"Lot K-Close","./images/k.png"); // Lot K-Close
+        ShowLocation(-117.817495, 34.050984,"Lot K-Far","./images/k.png"); // Lot K-Far
         
-        ShowLocation(-117.815961, 34.051819,"B-Far","./images/b.png"); // b far
-        ShowLocation(-117.814738, 34.053446,"B-Close","./images/b.png"); // b close
+        ShowLocation(-117.815961, 34.051819,"Lot B-Far","./images/b.png"); // b far
+        ShowLocation(-117.814738, 34.053446,"Lot B-Close","./images/b.png"); // b close
         
         
-        ShowLocation(-117.816938, 34.054886,"Q","./images/q.png"); //Q
+        ShowLocation(-117.816938, 34.054886,"Lot Q","./images/q.png"); //Q
 
 
         ShowLocation(-117.82131, 34.063624 ,"ten","./images/10.png"); //10fwy
@@ -163,13 +163,17 @@
                
                 if (xmlhttp.readyState==4 && xmlhttp.status==200)
                 {
-                    alert(ParkingLotName);
+                    
                     
                     document.getElementById("leftPane").innerHTML=xmlhttp.responseText;
                 }
             }
 
-        xmlhttp.open("GET","http://www.w3schools.com/XML/cd_catalog.xml",true);
+        var urlForParkingLot = "http://cppickup.info/" + ParkingLotName;
+        alert(urlForParkingLot);
+       // http://cppickup.info/cs480/parkedUser/list
+
+        xmlhttp.open("GET","http://cppickup.info/cs480/parkedUser/list",true);
         xmlhttp.send();
     }
 
@@ -252,84 +256,84 @@
                         var listOfParkings = "Parking Structure";
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
-                    else if(title == "F8"){
-                        loadXMLDoc("F8");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in F8";
+                    else if(title == "Lot F8"){
+                        loadXMLDoc("Lot F8");
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot F8";
                         registry.byId("leftPane").set("content", content);
 
-                        var listOfParkings = "F8";
+                        var listOfParkings = "Lot F8";
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
-                    else if(title == "F5,F9,F10"){
-                        loadXMLDoc("F5,F9,F10");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in F5,F9,F10";
+                    else if(title == "Lot F5, F9, F10"){
+                        loadXMLDoc("Lot F5, F9, F10");
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot F5, F9, F10";
                         registry.byId("leftPane").set("content", content);
 
-                        var listOfParkings = "F5,F9,F10";
+                        var listOfParkings = "Lot F5, F9, F10";
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
-                    else if(title == "F2,F3,F4"){
-                        loadXMLDoc("F2,F3,F4");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in F2,F3,F4";
+                    else if(title == "Lot F2, F3, F4"){
+                        loadXMLDoc("Lot F2, F3, F4");
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot F2, F3, F4";
                         registry.byId("leftPane").set("content", content);
 
-                        var listOfParkings = "F2,F3,F4";
+                        var listOfParkings = "Lot F2, F3, F4";
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
-                    else if(title == "J"){
-                        loadXMLDoc("J");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in J";
+                    else if(title == "Lot J"){
+                        loadXMLDoc("Lot J");
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot J";
                         registry.byId("leftPane").set("content", content);
 
-                        var listOfParkings = "J";
+                        var listOfParkings = "Lot J";
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
-                    else if(title == "M"){
-                        loadXMLDoc("M");
+                    else if(title == "Lot M"){
+                        loadXMLDoc("Lot M");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in M";
                         registry.byId("leftPane").set("content", content);
 
-                        var listOfParkings = "M";
+                        var listOfParkings = "Lot M";
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
-                     else if(title == "K-Close"){
-                        loadXMLDoc("K-Close");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in K-Close";
+                     else if(title == "Lot K-Close"){
+                        loadXMLDoc("Lot K-Close");
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot K-Close";
                         registry.byId("leftPane").set("content", content);
 
-                        var listOfParkings = "K-Close";
+                        var listOfParkings = "Lot K-Close";
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
-                     else if(title == "K-Far"){
-                        loadXMLDoc("K-Far");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in K-Far";
+                     else if(title == "Lot K-Far"){
+                        loadXMLDoc("Lot K-Far");
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot K-Far";
                         registry.byId("leftPane").set("content", content);
 
-                        var listOfParkings = "K-Far";
+                        var listOfParkings = "Lot K-Far";
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
-                     else if(title == "B-Close"){
-                        loadXMLDoc("B-Close");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in B-Close";
+                     else if(title == "Lot B-Close"){
+                        loadXMLDoc("Lot B-Close");
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot B-Close";
                         registry.byId("leftPane").set("content", content);
 
-                        var listOfParkings = "B-Close";
+                        var listOfParkings = "Lot B-Close";
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
-                     else if(title == "B-Far"){
-                        loadXMLDoc("B-Far");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in B-Far";
+                     else if(title == "Lot B-Far"){
+                        loadXMLDoc("Lot B-Far");
+                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot B-Far";
                         registry.byId("leftPane").set("content", content);
 
-                        var listOfParkings = "B-Far";
+                        var listOfParkings = "Lot B-Far";
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
-                     else if(title == "Q"){
-                        loadXMLDoc("Q");
+                     else if(title == "Lot Q"){
+                        loadXMLDoc("Lot Q");
                         var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Q";
                         registry.byId("leftPane").set("content", content);
 
-                        var listOfParkings = "Q";
+                        var listOfParkings = "Lot Q";
                         dom.byId("featureCount").innerHTML = listOfParkings;
                     }
                     else{
