@@ -108,7 +108,7 @@ form li:hover{
 }
 input[type="button"]{
 	float:right;
-	font-size:18px;
+	font-size:16px;
 	display: inline-block;
 	font-weight:600;
 	color: #fff;
@@ -139,7 +139,7 @@ input[type="button"]{
 
 input[type="signup"]{
 	float:right;
-	font-size:18px;
+	font-size:16px;
 	display: inline-block;
 	font-weight:600;
 	color: #fff;
