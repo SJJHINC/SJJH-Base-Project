@@ -39,5 +39,9 @@ public class ParkingLotManager {
 		int index = lotLocation(ln);
 		return calpoly.get(index).getUserList();	
 	}
-
+	
+	public User getFirstuser(String ln){
+		int index = lotLocation(ln);
+		return calpoly.get(index).getFirstUser();
+	}
 }

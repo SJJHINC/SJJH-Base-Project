@@ -48,4 +48,8 @@ public class ParkingLot {
 		return parkedUsers;
 
 	}
+
+	public User getFirstUser() {
+		return parkedUsers.get(0);
+	}
 }

@@ -143,8 +143,7 @@ public class WebController {
 	@RequestMapping(value = "/add/{name}", method = RequestMethod.POST)
 	String addUserToLot(@PathVariable("name") String name,
 			@RequestParam("building") String building,
-			@RequestParam("lot") String lot, 
-			@RequestParam("time") String time) {
+			@RequestParam("lot") String lot, @RequestParam("time") String time) {
 
 		User user = new User(name, building, time);
 		System.out.println(name + " " + building + " " + time + " " + lot);
@@ -152,12 +151,18 @@ public class WebController {
 		return "User Added Successfully";
 	}
 
-	// The list of people in a certain parking lot
 	@RequestMapping(value = "/get/{lot}", method = RequestMethod.GET)
-	List<User> getUsers(@PathVariable("lot") String lot) {
+	User getFirstUser(@PathVariable("lot") String lot) {
 
-		return PL.getUserList(lot);
+		return PL.getFirstUser(lot);
 	}
+
+	// // The list of people in a certain parking lot
+	// @RequestMapping(value = "/get/{lot}", method = RequestMethod.GET)
+	// List<User> getUsers(@PathVariable("lot") String lot) {
+	//
+	// return PL.getUserList(lot);
+	// }
 
 	// The system now keeps a record of who is logged in in the global variable
 	// currentUser.
