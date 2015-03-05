@@ -111,9 +111,10 @@ public class WebController {
 			PL.addLot(kclose);
 			PL.addLot(kfar);
 			full = true;
+			return "\nAdded Lots"
 
 		}
-		return "\nAdded Lots";
+		return "";
 	}
 
 	@RequestMapping(value = "/cs480/SingletonTest", method = RequestMethod.GET)
