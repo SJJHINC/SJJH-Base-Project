@@ -155,12 +155,7 @@ alert("Above Ajax" + ParkingLotName);
 						
 					},
 					success : function(result) {
-						$('#userTest').text(result);
-						alert("Ajax"+result);
-						location.reload();
-						alert("Lot sent");
-						
-					
+						$('#leftPane').text(result);
 					},
 					error: function (jqXHR, exception) {
 						alert("Failed to send the lot.");
