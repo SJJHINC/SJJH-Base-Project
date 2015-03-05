@@ -10,13 +10,13 @@ public class User {
 	private String name;
 	private String building;
 	private String estimateLeavingtime;
-	private String email;
 
-	public User(String name, String building, String time, String email) {
+
+	public User(String name, String building, String time) {
 		this.name = name;
 		this.building = building;
 		this.estimateLeavingtime = time;
-		this.email = email;
+		
 	}
 
 	public String getName() {
@@ -37,10 +37,6 @@ public class User {
 
 	public String getBuilding() {
 		return building;
-	}
-
-	public String getEmail() {
-		return email;
 	}
 
 }

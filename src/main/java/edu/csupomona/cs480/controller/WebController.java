@@ -140,12 +140,10 @@ public class WebController {
 	@RequestMapping(value = "/add/{name}", method = RequestMethod.POST)
 	String addUserToLot(@PathVariable("name") String name,
 			@RequestParam("building") String building,
-			@RequestParam("lot") String lot, @RequestParam("time") String time,
-			@RequestParam("email") String email) {
+			@RequestParam("lot") String lot, @RequestParam("time") String time) {
 
-		User user = new User(name, building, time, email);
-		System.out.println(name + " " + building + " " + time + " " + lot + " "
-				+ email);
+		User user = new User(name, building, time);
+		System.out.println(name + " " + building + " " + time + " " + lot);
 		PL.addUser(user, lot);
 		return "User Added Successfully";
 	}
@@ -159,9 +157,6 @@ public class WebController {
 
 		return userTest;
 	}
-	
-	
-	
 
 	// // The list of people in a certain parking lot
 	// @RequestMapping(value = "/get/{lot}", method = RequestMethod.GET)
