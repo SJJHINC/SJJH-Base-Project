@@ -140,19 +140,24 @@ public class WebController {
 	@RequestMapping(value = "/add/{name}", method = RequestMethod.POST)
 	String addUserToLot(@PathVariable("name") String name,
 			@RequestParam("building") String building,
-			@RequestParam("lot") String lot, @RequestParam("time") String time) {
+			@RequestParam("lot") String lot, @RequestParam("time") String time,
+			@RequestParam("email") String email) {
 
-		User user = new User(name, building, time);
-		System.out.println(name + " " + building + " " + time + " " + lot);
+		User user = new User(name, building, time, email);
+		System.out.println(name + " " + building + " " + time + " " + lot + " "
+				+ email);
 		PL.addUser(user, lot);
 		return "User Added Successfully";
 	}
 
 	@RequestMapping(value = "/get/{lot}", method = RequestMethod.GET)
-	User getFirstUser(@PathVariable("lot") String lot) {
+	String getFirstUser(@PathVariable("lot") String lot) {
 		User test = PL.getFirstUser(lot);
-		System.out.print(test.getName());
-		return test;
+		String userTest = (test.getName() + " is in " + test.getBuilding()
+				+ " and leaves at " + test.getLeave());
+		System.out.print(userTest);
+
+		return userTest;
 	}
 
 	// // The list of people in a certain parking lot
@@ -162,13 +167,11 @@ public class WebController {
 	// return PL.getUserList(lot);
 	// }
 
-
 	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.GET)
 	User getUser(@PathVariable("userId") String userId) {
 		User user = userManager.getUser(userId);
 		return user;
 	}
-
 
 	// -------------------------------parked
 	// space---------------------------------

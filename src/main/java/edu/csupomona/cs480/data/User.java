@@ -10,11 +10,13 @@ public class User {
 	private String name;
 	private String building;
 	private String estimateLeavingtime;
+	private String email;
 
-	public User(String name, String building, String time) {
+	public User(String name, String building, String time, String email) {
 		this.name = name;
 		this.building = building;
 		this.estimateLeavingtime = time;
+		this.email = email;
 	}
 
 	public String getName() {
@@ -31,6 +33,14 @@ public class User {
 
 	public void setLeave(String time) {
 		this.estimateLeavingtime = time;
+	}
+
+	public String getBuilding() {
+		return building;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 
 }
