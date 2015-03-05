@@ -3,12 +3,95 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html">
-  <title>Horizontal Application Form - Template Monster Demo</title>
+  <title>CPP-Pickup | Pickup </title>
   <meta name="author" content="Jake Rocheleau">
   <link rel="shortcut icon" href="http://static.tmimgcdn.com/img/favicon.ico">
   <link rel="icon" href="http://static.tmimgcdn.com/img/favicon.ico">
+  
+  
+  
   <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
   <link rel="stylesheet" type="text/css" media="all" href="css/switchery.min.css">
+  
+<script type="text/javascript">
+
+
+function isValidTime (value){
+ 
+      // regular expression for time
+      re = /^(0?[1-9]|1[012])(:[0-5]\d)/;
+
+      // validate if it matches
+      if(!value.match(re)) {
+        alert("Invalid time format: " + value);
+        return false;
+      }
+     
+      return true;
+
+}
+function submitInfoFunction(){ 
+
+       // Here we will submit info
+       var inputName = document.getElementById("name").value;
+       var inputBuilding = document.getElementById("building").value;
+       var inputParkingLot = document.getElementById("parkingLot").value;
+       var inputTime = document.getElementById("time").value;
+
+       
+       // input validation for Name
+       if(inputName.trim() == "" || inputTime.trim() == "" ){
+          alert("Invalid Name or Time! One of these fields are empty.");   
+          return;
+       }
+
+       // input validation for Time
+       if(!isValidTime(inputTime)){
+            return;
+       }
+
+	if (inputName) {
+		$.ajax(
+				{
+					type : "POST",
+					url  : "/add/" + inputName,
+					data : {
+						"building" : inputBuilding,
+						"lot" : inputParkingLot,
+						"time" : inputTime
+					},
+					success : function(result) {
+						location.reload();
+						alert("User Added");
+					
+					},
+					error: function (jqXHR, exception) {
+						alert("Failed to add the user. Please check the inputs.");
+					}
+				});
+	} else {
+		alert("Invalid user Name");
+		}
+		
+
+       //submit form and alert for debugging purposes
+       document.getElementById("myForm").submit();
+     //add();
+        alert("User Name : " +inputName+ "\n" +"Building : "+inputBuilding+ "\n" +
+              "ParkingLot : "+inputParkingLot + "\n" + "Time :"+inputTime + "\nHas been submitted.");
+
+        window.location.href = "SuccessfulSubmission.html";
+              
+    }
+
+var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+elems.forEach(function(html) {
+  var switchery = new Switchery(html);
+});
+</script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/switchery.min.js"></script>
 </head>
 
@@ -123,58 +206,6 @@
   
   </form>
   </div>
-<script type="text/javascript">
 
-
-function isValidTime (value){
- 
-      // regular expression for time
-      re = /^(0?[1-9]|1[012])(:[0-5]\d)/;
-
-      // validate if it matches
-      if(!value.match(re)) {
-        alert("Invalid time format: " + value);
-        return false;
-      }
-     
-      return true;
-
-}
-function submitInfoFunction(){ 
-
-       // Here we will submit info
-       var inputName = document.getElementById("name").value;
-       var inputBuilding = document.getElementById("building").value;
-       var inputParkingLot = document.getElementById("parkingLot").value;
-       var inputTime = document.getElementById("time").value;
-
-       
-       // input validation for Name
-       if(inputName.trim() == "" || inputTime.trim() == "" ){
-          alert("Invalid Name or Time! One of these fields are empty.");   
-          return;
-       }
-
-       // input validation for Time
-       if(!isValidTime(inputTime)){
-            return;
-       }
-
-       //submit form and alert for debugging purposes
-       document.getElementById("myForm").submit();
-
-        alert("User Name : " +inputName+ "\n" +"Building : "+inputBuilding+ "\n" +
-              "ParkingLot : "+inputParkingLot + "\n" + "Time :"+inputTime + "\nHas been submitted.");
-
-        window.location.href = "SuccessfulSubmission.html";
-              
-    }
-
-var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-
-elems.forEach(function(html) {
-  var switchery = new Switchery(html);
-});
-</script>
 </body>
 </html>

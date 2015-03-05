@@ -140,7 +140,7 @@ public class WebController {
 	}
 
 	// Adding A user into a parking lot
-	@RequestMapping(value = "/add/{name}+{building}+{lot}+{time}", method = RequestMethod.POST)
+	@RequestMapping(value = "/add/{name}", method = RequestMethod.POST)
 	String addUserToLot(@PathVariable("name") String name,
 			@PathVariable("building") String building,
 			@PathVariable("lot") String lot, @PathVariable("time") String time) {
