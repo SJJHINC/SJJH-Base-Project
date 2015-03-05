@@ -32,6 +32,38 @@ function deleteUser(userId) {
 			});
 }
 
+
+function addNewStudent() {
+ 
+	var userName = $('#input_name').val();
+	var userB = $('#input_building').val();
+	var userLot = $('#input_lot').val();
+	var userTime = $('#input_time').val();
+
+	if (userId) {
+		$.ajax(
+				{
+					type : "POST",
+					url  : "/add/" + userName,
+					data : {
+						"building" : userB,
+						"lot" : userLot,
+						"time" : userTime
+					},
+					success : function(result) {
+						location.reload();
+					},
+					error: function (jqXHR, exception) {
+						alert("Failed to add the user. Please check the inputs.");
+					}
+				});
+	} else {
+		alert("Invalid user Id");
+	}
+}
+
+
+
 function addUser() {
 
 	var userId = $('#input_id').val();

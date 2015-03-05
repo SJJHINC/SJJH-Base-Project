@@ -142,10 +142,12 @@ public class WebController {
 	// Adding A user into a parking lot
 	@RequestMapping(value = "/add/{name}", method = RequestMethod.POST)
 	String addUserToLot(@PathVariable("name") String name,
-			@PathVariable("building") String building,
-			@PathVariable("lot") String lot, @PathVariable("time") String time) {
+			@RequestParam("building") String building,
+			@RequestParam("lot") String lot, 
+			@RequestParam("time") String time) {
 
 		User user = new User(name, building, time);
+		System.out.println(name + " " + building + " " + time + " " + lot);
 		PL.addUser(user, lot);
 		return "User Added Successfully";
 	}
