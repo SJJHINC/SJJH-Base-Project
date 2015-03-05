@@ -49,10 +49,6 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
  * @author Jeremiah
  *
  */
-/**
- * @author Jeremiah
- *
- */
 @RestController
 public class WebController {
 
@@ -165,75 +161,13 @@ public class WebController {
 	// return PL.getUserList(lot);
 	// }
 
-	// The system now keeps a record of who is logged in in the global variable
-	// currentUser.
-	// The idea I have is that after a login, the page loads a main page like
-	// "modelandView" method
-	// down below, and passes in current user, so it knows to pull up the
-	// appropriate lists and etc.
-	@RequestMapping(value = "/check", method = RequestMethod.GET)
-	String Checklogin() {
-		User temp = currentUser;
-		if (temp == null) {
-			return "No one is logged in";
-		} else {
-			return temp.getName() + " is logged in";
-		}
 
-	}
-
-	/**
-	 * This is a simple example of how to use a data manager to retrieve the
-	 * data and return it as an HTTP response.
-	 * <p>
-	 * Note, when it returns from the Spring, it will be automatically converted
-	 * to JSON format.
-	 * <p>
-	 * Try it in your web browser: http://localhost:8080/cs480/user/user101
-	 */
 	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.GET)
 	User getUser(@PathVariable("userId") String userId) {
 		User user = userManager.getUser(userId);
 		return user;
 	}
 
-	@RequestMapping(value = "/firstUserTest/{lotNumber}", method = RequestMethod.GET)
-	User getFirstUserFromLot(@PathVariable("lotNumber") String ln) {
-		User user = PL.getFirstUser(ln);
-		return user;
-	}
-
-	/**
-	 * This API deletes the user. It uses HTTP DELETE method.
-	 *
-	 * @param userId
-	 */
-	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.DELETE)
-	void deleteUser(@PathVariable("userId") String userId) {
-		userManager.deleteUser(userId);
-	}
-
-	/**
-	 * This API lists all the users in the current database.
-	 *
-	 * @return
-	 */
-	@RequestMapping(value = "/cs480/users/list", method = RequestMethod.GET)
-	List<User> listAllUsers() {
-		return userManager.listAllUsers();
-	}
-
-	/*********** Web UI Test Utility **********/
-	/**
-	 * This method provide a simple web UI for you to test the different
-	 * functionalities used in this web service.
-	 */
-	@RequestMapping(value = "/cs480/home", method = RequestMethod.GET)
-	ModelAndView getUserHomepage() {
-		ModelAndView modelAndView = new ModelAndView("home");
-		modelAndView.addObject("users", listAllUsers());
-		return modelAndView;
-	}
 
 	// -------------------------------parked
 	// space---------------------------------
@@ -292,61 +226,4 @@ public class WebController {
 	void deleteUserNeedSpace(@PathVariable("postId") String postId) {
 		messageManager.deleteMessage(postId);
 	}
-
-	// /////////////////////////////////////////////////////////////////////////////AS6
-	public static void parserWithJSOUP(String[] args) {
-
-		Document doc;
-		try {
-
-			// need http protocol
-			doc = Jsoup.connect("http://google.com").get();
-
-			// get page title
-			String title = doc.title();
-			System.out.println("title : " + title);
-
-			// get all links
-			Elements links = doc.select("a[href]");
-			for (Element link : links) {
-
-				// get the value from href attribute
-				System.out.println("\nlink : " + link.attr("href"));
-				System.out.println("text : " + link.text());
-
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	// /////////////////////////////////////// Testing Commons-Math, assignment
-	// 5, Hesham.
-	public static void testingCommonsMath(String[] args) {
-		RandomGenerator randomGenerator = new JDKRandomGenerator();
-		System.out.println(randomGenerator.nextInt());
-		System.out.println(randomGenerator.nextDouble());
-
-		// Descriptive Statistics like Mean, standart deviation, Max
-		DescriptiveStatistics stats = new DescriptiveStatistics();
-		stats.addValue(1);
-		stats.addValue(2);
-		stats.addValue(3);
-		stats.addValue(4);
-		stats.addValue(5);
-
-		System.out.println("Mean is" + stats.getMean() + "\n");
-		System.out.println("Standard Deviation is"
-				+ stats.getStandardDeviation() + "\n");
-		System.out.println("Max is" + stats.getMax() + "\n");
-
-		Complex c1 = new Complex(1, 2);
-		Complex c2 = new Complex(2, 3);
-		System.out.println("Absolute of c1 is " + c1.abs() + "\n");
-		System.out.println("Addition of c1 and c2 is " + (c1.add(c2)) + "\n");
-	}
-	// ///////////////////////////////////////// end of commonsMath testing.
-
 }
