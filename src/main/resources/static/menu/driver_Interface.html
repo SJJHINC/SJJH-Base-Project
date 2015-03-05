@@ -169,30 +169,7 @@ alert("Above Ajax" + ParkingLotName);
 	} else {
 		alert("lot not sent");
 		}
-		
-	if (ParkingLotName) {
-		$.ajax(
-				{
-					type : "Post",
-					url  : "/get/" + ParkingLotName,
-					data : {
-						
-					},
-					success : function(result) {
-						location.reload();
-						alert("Lot sent");
-						
-					
-					},
-					error: function (jqXHR, exception) {
-						alert("Failed to send the lot.");
-					}
-				});
-	} else {
-		alert("lot not sent");
-		}
-        
-   }
+
 
 
      //---------------------------------------------
