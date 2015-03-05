@@ -111,7 +111,7 @@ public class WebController {
 			PL.addLot(kclose);
 			PL.addLot(kfar);
 			full = true;
-			return "\nAdded Lots"
+			return "\nAdded Lots";
 
 		}
 		return "";
