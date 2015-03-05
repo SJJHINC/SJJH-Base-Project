@@ -153,8 +153,9 @@ public class WebController {
 
 	@RequestMapping(value = "/get/{lot}", method = RequestMethod.GET)
 	User getFirstUser(@PathVariable("lot") String lot) {
-
-		return PL.getFirstUser(lot);
+		User test = PL.getFirstUser(lot);
+		System.out.print(test.getName());
+		return test;
 	}
 
 	// // The list of people in a certain parking lot
