@@ -44,9 +44,11 @@
         border-bottom: solid 1px #ccc;
     }
 </style>
-    
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+   
 <script src="http://js.arcgis.com/3.12/"></script>
 <script>
+
     require([
         "dojo/ready", 
         "dojo/on",
@@ -142,40 +144,55 @@
      function loadXMLDoc(ParkingLotName)
     {
         
-         var xmlhttp;
-         if (window.XMLHttpRequest)
-            {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp=new XMLHttpRequest();
-               
-            }
-        else
-            {// code for IE6, IE5
-                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-            }
-        xmlhttp.onreadystatechange=function()
-            {
-
-                // anything else and the State is not ready
-                alert("xmlhttp.readyState - should be 4 to continue :"+xmlhttp.readyState + 
-
-               "\nmlhttp.status - should be 200 to continue : "+xmlhttp.status);
-
-               
-                if (xmlhttp.readyState==4 && xmlhttp.status==200)
-                {
-                    
-                    
-                    document.getElementById("leftPane").innerHTML=xmlhttp.responseText;
-                }
-            }
-
-        var urlForParkingLot = "http://cppickup.info/" + ParkingLotName;
-        alert(urlForParkingLot);
-       // http://cppickup.info/cs480/parkedUser/list
-
-        xmlhttp.open("GET","http://cppickup.info/cs480/parkedUser/list",true);
-        xmlhttp.send();
-    }
+      
+alert("Above Ajax" + ParkingLotName);
+			if (ParkingLotName) {
+		$.ajax(
+				{
+					type : "GET",
+					url  : "/get/" + ParkingLotName,
+					data : {
+						
+					},
+					success : function(result) {
+						$('#userTest').text(result);
+						alert("Ajax"+result);
+						location.reload();
+						alert("Lot sent");
+						
+					
+					},
+					error: function (jqXHR, exception) {
+						alert("Failed to send the lot.");
+					}
+				});
+	} else {
+		alert("lot not sent");
+		}
+		
+	if (ParkingLotName) {
+		$.ajax(
+				{
+					type : "Post",
+					url  : "/get/" + ParkingLotName,
+					data : {
+						
+					},
+					success : function(result) {
+						location.reload();
+						alert("Lot sent");
+						
+					
+					},
+					error: function (jqXHR, exception) {
+						alert("Failed to send the lot.");
+					}
+				});
+	} else {
+		alert("lot not sent");
+		}
+        
+   }
 
 
      //---------------------------------------------
