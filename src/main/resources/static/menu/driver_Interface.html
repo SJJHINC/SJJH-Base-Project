@@ -154,7 +154,16 @@
 						
 					},
 					success : function(result) {
-						$('#leftPane').text(result);
+						 if(result == ""){
+                            $('#leftPane').text("There Are Currently No Parking Slot Available In This Lot");
+                        }
+                        else{
+
+                            result += "<br> Hello";
+
+                          alert("This is the response: "+ result);
+                          document.getElementById("leftPane").innerHTML=result;
+                        }
 					},
 					error: function (jqXHR, exception) {
 						alert("Failed to send the lot.");
@@ -238,7 +247,7 @@
                   
                     if(title == "Parking Structure"){
                         loadXMLDoc("Parking Structure");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in PS";
+                        var content =  dom.byId("leftPane").innerHTML = "Loading in PS";
                         registry.byId("leftPane").set("content", content);
 
                         var listOfParkings = "Parking Structure";
@@ -246,7 +255,7 @@
                     }
                     else if(title == "Lot F8"){
                         loadXMLDoc("Lot F8");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot F8";
+                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot F8";
                         registry.byId("leftPane").set("content", content);
 
                         var listOfParkings = "Lot F8";
@@ -254,7 +263,7 @@
                     }
                     else if(title == "Lot F5, F9, F10"){
                         loadXMLDoc("Lot F5, F9, F10");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot F5, F9, F10";
+                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot F5, F9, F10";
                         registry.byId("leftPane").set("content", content);
 
                         var listOfParkings = "Lot F5, F9, F10";
@@ -262,7 +271,7 @@
                     }
                     else if(title == "Lot F2, F3, F4"){
                         loadXMLDoc("Lot F2, F3, F4");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot F2, F3, F4";
+                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot F2, F3, F4";
                         registry.byId("leftPane").set("content", content);
 
                         var listOfParkings = "Lot F2, F3, F4";
@@ -270,7 +279,7 @@
                     }
                     else if(title == "Lot J"){
                         loadXMLDoc("Lot J");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot J";
+                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot J";
                         registry.byId("leftPane").set("content", content);
 
                         var listOfParkings = "Lot J";
@@ -278,7 +287,7 @@
                     }
                     else if(title == "Lot M"){
                         loadXMLDoc("Lot M");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in M";
+                        var content =  dom.byId("leftPane").innerHTML = "Loading in M";
                         registry.byId("leftPane").set("content", content);
 
                         var listOfParkings = "Lot M";
@@ -286,7 +295,7 @@
                     }
                      else if(title == "Lot K-Close"){
                         loadXMLDoc("Lot K-Close");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot K-Close";
+                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot K-Close";
                         registry.byId("leftPane").set("content", content);
 
                         var listOfParkings = "Lot K-Close";
@@ -294,7 +303,7 @@
                     }
                      else if(title == "Lot K-Far"){
                         loadXMLDoc("Lot K-Far");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot K-Far";
+                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot K-Far";
                         registry.byId("leftPane").set("content", content);
 
                         var listOfParkings = "Lot K-Far";
@@ -302,7 +311,7 @@
                     }
                      else if(title == "Lot B-Close"){
                         loadXMLDoc("Lot B-Close");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot B-Close";
+                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot B-Close";
                         registry.byId("leftPane").set("content", content);
 
                         var listOfParkings = "Lot B-Close";
@@ -310,7 +319,7 @@
                     }
                      else if(title == "Lot B-Far"){
                         loadXMLDoc("Lot B-Far");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Lot B-Far";
+                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot B-Far";
                         registry.byId("leftPane").set("content", content);
 
                         var listOfParkings = "Lot B-Far";
@@ -318,7 +327,7 @@
                     }
                      else if(title == "Lot Q"){
                         loadXMLDoc("Lot Q");
-                        var content =  dom.byId("leftPane").innerHTML = "Currently No Available Slots in Q";
+                        var content =  dom.byId("leftPane").innerHTML = "Loading in Q";
                         registry.byId("leftPane").set("content", content);
 
                         var listOfParkings = "Lot Q";
