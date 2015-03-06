@@ -145,14 +145,19 @@ public class WebController {
 		User user = new User(name, building, time);
 		System.out.println(name + " " + building + " " + time + " " + lot);
 		PL.addUser(user, lot);
-		return "User Added Successfully";
+		return "/menu";
 	}
 
 	@RequestMapping(value = "/get/{lot}", method = RequestMethod.GET)
 	String getFirstUser(@PathVariable("lot") String lot) {
-		User test = PL.getFirstUser(lot);
-		String userTest = (test.getName() + " is in " + test.getBuilding()
-				+ " and leaves at " + test.getLeave());
+		List<User> list = PL.getUserList(lot);
+		String userTest = "";
+		for (int i = 0; i < list.size(); i++) {
+			User test = list.get(i);
+			userTest += (test.getName() + " is in " + test.getBuilding()
+					+ " and leaves at " + test.getLeave());
+			userTest += " ? ";
+		}
 		System.out.print(userTest);
 
 		return userTest;

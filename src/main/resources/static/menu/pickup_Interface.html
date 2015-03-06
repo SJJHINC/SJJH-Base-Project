@@ -61,9 +61,7 @@ function submitInfoFunction(){
 						"time" : inputTime
 					},
 					success : function(result) {
-						location.reload();
-						alert("User Added");
-					
+					    window.location.href = "SuccessfulSubmission.html";
 					},
 					error: function (jqXHR, exception) {
 						alert("Failed to add the user. Please check the inputs.");
@@ -75,12 +73,12 @@ function submitInfoFunction(){
 		
 
        //submit form and alert for debugging purposes
-       document.getElementById("myForm").submit();
+       //document.getElementById("myForm").submit();
      //add();
-        alert("User Name : " +inputName+ "\n" +"Building : "+inputBuilding+ "\n" +
-              "ParkingLot : "+inputParkingLot + "\n" + "Time :"+inputTime + "\nHas been submitted.");
+      //  alert("User Name : " +inputName+ "\n" +"Building : "+inputBuilding+ "\n" +
+          //    "ParkingLot : "+inputParkingLot + "\n" + "Time :"+inputTime + "\nHas been submitted.");
 
-        window.location.href = "SuccessfulSubmission.html";
+     
               
     }
 
@@ -100,7 +98,7 @@ elems.forEach(function(html) {
   
   <h1>C~P~Pickup</h1>
 
-  <form id= "myForm" action="PickupList.txt" method="get">
+  <form id= "myForm" method="get">
   <div class="col-2">
     <label>
       Name
