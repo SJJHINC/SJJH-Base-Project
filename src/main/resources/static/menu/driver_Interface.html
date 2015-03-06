@@ -159,10 +159,15 @@
                         }
                         else{
 
-                            result += "<br> Hello";
+                          alert("This is the response: "+ result);  
+                          var text = "";
+                          resultArray = result.split("?");
+                          for (i = 0; i < resultArray.length; i++) { 
+                                 text += "<a href=\"mailto:example@csupomona.edu\">" +resultArray[i] + "</a><br>";
+                            }
 
-                          alert("This is the response: "+ result);
-                          document.getElementById("leftPane").innerHTML=result;
+                         
+                          document.getElementById("leftPane").innerHTML=text;
                         }
 					},
 					error: function (jqXHR, exception) {
