@@ -12,6 +12,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<meta charset="utf-8">
 		<link href="css/style.css" rel='stylesheet' type='text/css' />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
 			function myFunction()
             {
@@ -21,6 +22,39 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             }
 
 		 </script>
+		
+		 <script type="text/javascript">
+
+
+function callFill(){ 
+
+
+       var username = document.getElementById("username").value;
+      
+	if (username) {
+		$.ajax(
+				{
+					type : "GET",
+					url  : "/fill",
+					data : {
+					
+					},
+					success : function(result) {
+				
+						alert(" filled");
+					
+					},
+					error: function (jqXHR, exception) {
+						alert("Failed to add the user. Please check the inputs.");
+					}
+				});
+	} else {
+		alert("username");
+		}
+		
+       }       
+    </script>
+    
 		<!--webfonts-->
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300,600,700' rel='stylesheet' type='text/css'>
 		<!--//webfonts-->
@@ -35,7 +69,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 				<form>
 					<li>
-						<input type="text" class="text" value="USERNAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}" ><a href="#" class=" icon user"></a>
+						<input type="text" id="username" class="text" value="USERNAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}" ><a href="#" class=" icon user"></a>
 					</li>
 					<li>
 						<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"><a href="#" class=" icon lock"></a>
@@ -44,7 +78,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<label class="checkbox"><input type="checkbox" name="checkbox" checked><i></i>Remember Me</label>
 
 								<a href="./menu/index.html">
-   							<input type="button" value="SIGN IN" />
+   							<input type="button" value="SIGN IN" onclick="callFill()" />
 							
   <!--//Sign Up-->
  							 <a  href="./menu/registration.html">
