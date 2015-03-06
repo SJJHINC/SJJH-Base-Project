@@ -10,9 +10,21 @@
   <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
   <link rel="stylesheet" type="text/css" media="all" href="css/switchery.min.css">
   <script type="text/javascript" src="js/switchery.min.js"></script>
+
+  <script type="text/javascript">
+
+function goHome(){
+  window.location.href = "./index.html";
+
+}
+
+
+</script>
 </head>
 
 <body  background="Pomona_Campus.jpg">
+
+
   <div id="wrapper">
   
   <h1>C~P~Pickup </h1>
@@ -20,7 +32,11 @@
  
   
   
-  <form>
+  <form action="index.html">
+
+
+
+
   <div>
     <label>
      <br>
@@ -34,9 +50,24 @@
      <br> 
      <br>
      </label>
-  <div>
-  </form>
+
+       
+
+ </div>
+
+ <div class="col-1">
+    <label>
+     
+    </label>
   </div>
+
+ <div class="col-submit">
+    
+    <button class="submitbtn" type="button" onclick="goHome()">Back To Menu </button>
+   
+  </div>
+  </form>
+ 
   
 
 </body>
