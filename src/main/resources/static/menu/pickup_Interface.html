@@ -15,7 +15,6 @@
   
 <script type="text/javascript">
 
-
 function isValidTime (value){
  
       // regular expression for time
@@ -31,13 +30,16 @@ function isValidTime (value){
 
 }
 function validateEmail(email) { 
+    // regular expression for email. This does not validate cpp email, that is done in the Submit Function 
+    // after it returns the string
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     return re.test(email);
 } 
 function submitInfoFunction(){ 
 
      
-       // Here we will submit info
+       // Variables for the values in the forms
        var inputName = document.getElementById("name").value;
        var inputEmail = document.getElementById("email").value;
        var inputBuilding = document.getElementById("building").value;
@@ -52,7 +54,7 @@ function submitInfoFunction(){
        }
 
 
-       // Validation for email
+       // Validation for csupomona.edu email
        if(validateEmail(inputEmail)){
         
           var res = inputEmail.split("@");
@@ -68,51 +70,41 @@ function submitInfoFunction(){
        }
 
 
-
        // input validation for Time
        if(!isValidTime(inputTime)){
             return;
        }
 
-
       
-
-	if (inputName) {
-		$.ajax(
-				{
-					type : "POST",
-					url  : "/add/" + inputName,
-					data : {
-						"building" : inputBuilding,
-						"lot" : inputParkingLot,
-						"time" : inputTime,
-						"email" : inputEmail
-					},
-					success : function(result) {
-					    window.location.href = "SuccessfulSubmission.html";
-					},
-					error: function (jqXHR, exception) {
-						alert("Failed to add the user. Please check the inputs.");
-					}
-				});
-	} else {
-		alert("Invalid user Name");
-		}
-		
-
-       //submit form and alert for debugging purposes
-       //document.getElementById("myForm").submit();
-     //add();
-      //  alert("User Name : " +inputName+ "\n" +"Building : "+inputBuilding+ "\n" +
-          //    "ParkingLot : "+inputParkingLot + "\n" + "Time :"+inputTime + "\nHas been submitted.");
-
-     
+        // ajax call that handles whether or not the submission to the server was succesful.
+        // If the input was indeed succesfull, the user will be redirected to the Succesfull Submision page
+      	if (inputName) {
+      		$.ajax(
+      				{
+      					type : "POST",
+      					url  : "/add/" + inputName,
+      					data : {
+      						"building" : inputBuilding,
+      						"lot" : inputParkingLot,
+      						"time" : inputTime,
+      						"email" : inputEmail
+      					},
+      					success : function(result) {
+      					    window.location.href = "SuccessfulSubmission.html";
+      					},
+      					error: function (jqXHR, exception) {
+      						alert("Failed to add the user. Please check the inputs.");
+      					}
+      				});
+      	} else {
+      		  alert("Invalid user Name");
+      	}
               
     }
 
-var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+  var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
-elems.forEach(function(html) {
+  elems.forEach(function(html) {
   var switchery = new Switchery(html);
 });
 </script>
@@ -121,122 +113,130 @@ elems.forEach(function(html) {
   <script type="text/javascript" src="js/switchery.min.js"></script>
 </head>
 
-<body  background="Pomona_Campus.jpg">>
-  <div id="wrapper">
-  
-  <h1>C~P~Pickup</h1>
-
-  <form id= "myForm" method="get">
-  <div class="col-2">
-    <label>
-      Name
-      <input placeholder="Enter a name" id="name" name="myName" tabindex="1">
-    </label>
-  </div>
-  <div class="col-2">
-
-     <label>
-       Email
-      <input placeholder="example@csupomona.edu" id="email" name="myEmail" tabindex="1">
-    </label>
-   
-  
-  </div>
-  
-
- 
-
-
-  <div class="col-3">
-    <label>
-      I AM IN BUILDING
-      <select tabindex="5" name="Building" id="building">
-        <option value="Library"> Library </option>
-        <option value="Bronco Student Center"> Bronco Student Center </option>
-        <option value="CLA"> CLA </option>
-        <option value="1 - Building One"> 1 - Building One </option>
-        <option value="2 - College of Agriculture"> 2 - College of Agriculture</option>
-        <option value="3 - Science Laboratory"> 3 - Science Laboratory </option>
-        <option value="4 - Biotechnology Building"> 4 - Biotechnology Building </option>
-        <option value="5 - College of Letters, Arts and Social Sciences"> 5 - College of Letters, Arts and Social Sciences </option>
-        <option value="6 - College of Education and Integrative Studies"> 6 - College of Education and Integrative Studies </option>
-        <option value="7 - College of Environmental Design"> 7 - College of Environmental Design </option>
-        <option value="8 - College of Science"> 8 - College of Science </option>
-        <option value="9 - College of Engineering"> 9 - College of Engineering </option>
-        <option value="13 - Art Department and Engineering Annex"> 13 - Art Department and Engineering Annex </option>
-        <option value="17 - Engineering Laboratories"> 17 - Engineering Laboratories</option>
-        <option value="20 - Residence Hall, Encinitas"> 20 - Residence Hall, Encinitas </option>
-        <option value="21 - Residence Hall, Montecito"> 21 - Residence Hall, Montecito </option>
-        <option value="22 - Residence Hall, Alamitos"> 22 - Residence Hall, Alamitos</option>
-        <option value="23 - Residence Hall, Aliso"> 23 - Residence Hall, Aliso </option>
-        <option value="24 - Music"> 24 - Music </option>
-        <option value="25 - Drama Department/Theatre"> 25 - Drama Department/Theatre </option>
-        <option value="26 - University Plaza "> 26 - University Plaza </option>
-        <option value="29 - W.K. Kellogg Arabian Horse Center"> 29 - W.K. Kellogg Arabian Horse Center </option>
-        <option value="30 - Agricultural Unit"> 30 - Agricultural Unit</option>
-        <option value="31 - Poultry Unit/Poultry Houses"> 31 - Poultry Unit/Poultry Houses</option>
-        <option value="32 - Beef Unit/Feed Shed"> 32 - Beef Unit/Feed Shed </option>
-        <option value="33 - Feedmill"> 33 - Feedmill </option>
-        <option value="34 - Meat Laboratory "> 34 - Meat Laboratory </option>
-        <option value="35 - Bronco Student Center"> 35 - Bronco Student Center </option>
-        <option value="42 - Bronco Recreation Intramural Complex (BRIC)"> 42 - Bronco Recreation Intramural Complex (BRIC) </option>
-        <option value="43 - Kellogg Gymnasium"> 43 - Kellogg Gymnasium </option>
-        <option value="66 - Bronco Bookstore"> 66 - Bronco Bookstore </option>
-        <option value="70 - Los Olivos Commons"> 70 - Los Olivos Commons </option>
-        <option value="85 - I-Poly High School"> 85 - I-Poly High School</option>
-        <option value="106 - Parking Structure"> 106 - Parking Structure </option>
-        <option value="109 - Police and Parking Services"> 109 - Police and Parking Services </option>
-        <option value="116 - Child Care Center"> 116 - Child Care Center </option>
-        <option value="162-164] - College of Business Administration "> [162-164] - College of Business Administration </option>
-        <option value="200 - University Village"> 200 - University Village </option>
-
-
-
-
-
-      </select>
-    </label>
-  </div>
-  <div class="col-3">
-    <label>
-      I Have A Parking Spot At
-       <select tabindex="5" name="ParkingLocation" id="parkingLot">
-        <option value="Parking Structure">Parking Structure</option>
-        <option value="Lot B-Close">B : East of Parking Lot K [Closer To Kellogg Dr].</option>
-        <option value="Lot B-Far">B : East of Parking Lot K [Closer To W Temple].</option>
-        <option value="Lot F2, F3, F4">F2 : South of Residence Hall, Alamitos (Bldg. 22)</option>
-        <option value="Lot F2, F3, F4">F3 : North of Parking Lot F4 and South of Recreation/Maintenance</option>
-        <option value="Lot F2, F3, F4">F4 : North of Parking Structure (Bldg. 106).</option>
-        <option value="Lot F5, F9, F10">F5 : NorthEast of Parking Structure (Bldg. 106).</option>
-        <option value="Lot F5, F9, F10">F9 : South of Parking Structure (Bldg. 106).</option>
-        <option value="Lot F5, F9, F10">F10 : East of Police and Parking Services (Bldg. 109).</option>
-        <option value="Lot J">J : West of College of Environmental Design (Bldg. 7) and NorthWest of Health Services (Bldg. 46).</option>
-        <option value="Lot K-Close">K : SouthEast of I Poly High School [Closer to IPoly] .</option>
-        <option value="Lot K-Far">K : SouthEast of I Poly High School [Closer to S.Campus].</option>
-        <option value="Lot M">M : South of Parking Lot J and South West of College of Environmental Design (Bldg. 7).</option>
-        <option value="Lot Q">Q : East of Residence Suites (Bldg. 60).</option>
-        
-
-      </select>
-    </label>
-  </div>
-  
-  <div class="col-4">
-    <label>
-      Time 
-      <input placeholder= HH:MM id="time" name="Time" tabindex="6">
-    </label>
-  </div>
- 
-  
-  <div class="col-submit">
+  <body  background="Pomona_Campus.jpg">>
+    <div id="wrapper">
     
-    <button class="submitbtn" type="button" onclick="submitInfoFunction()">Submit </button>
-   
-  </div>
-  
-  </form>
-  </div>
+      <h1>C~P~Pickup</h1>
 
-</body>
+        <form id= "myForm" method="get">
+
+          <!-- *** Field For Name -->
+            <div class="col-2">
+              <label>
+                Name
+                <input placeholder="Enter a name" id="name" name="myName" tabindex="1">
+              </label>
+            </div>
+
+          <!-- *** Field For email -->
+
+            <div class="col-2">
+               <label>
+                 Email
+                <input placeholder="example@csupomona.edu" id="email" name="myEmail" tabindex="1">
+              </label>
+            </div>
+            
+          <!-- *** This will provide the user with a clickable list to express which building the user would like to get picked up by ***-->
+
+            <div class="col-3">
+              <label>
+                I AM IN BUILDING
+                <select tabindex="5" name="Building" id="building">
+                  <option value="Library"> Library </option>
+                  <option value="Bronco Student Center"> Bronco Student Center </option>
+                  <option value="CLA"> CLA </option>
+                  <option value="1 - Building One"> 1 - Building One </option>
+                  <option value="2 - College of Agriculture"> 2 - College of Agriculture</option>
+                  <option value="3 - Science Laboratory"> 3 - Science Laboratory </option>
+                  <option value="4 - Biotechnology Building"> 4 - Biotechnology Building </option>
+                  <option value="5 - College of Letters, Arts and Social Sciences"> 5 - College of Letters, Arts and Social Sciences </option>
+                  <option value="6 - College of Education and Integrative Studies"> 6 - College of Education and Integrative Studies </option>
+                  <option value="7 - College of Environmental Design"> 7 - College of Environmental Design </option>
+                  <option value="8 - College of Science"> 8 - College of Science </option>
+                  <option value="9 - College of Engineering"> 9 - College of Engineering </option>
+                  <option value="13 - Art Department and Engineering Annex"> 13 - Art Department and Engineering Annex </option>
+                  <option value="17 - Engineering Laboratories"> 17 - Engineering Laboratories</option>
+                  <option value="20 - Residence Hall, Encinitas"> 20 - Residence Hall, Encinitas </option>
+                  <option value="21 - Residence Hall, Montecito"> 21 - Residence Hall, Montecito </option>
+                  <option value="22 - Residence Hall, Alamitos"> 22 - Residence Hall, Alamitos</option>
+                  <option value="23 - Residence Hall, Aliso"> 23 - Residence Hall, Aliso </option>
+                  <option value="24 - Music"> 24 - Music </option>
+                  <option value="25 - Drama Department/Theatre"> 25 - Drama Department/Theatre </option>
+                  <option value="26 - University Plaza "> 26 - University Plaza </option>
+                  <option value="29 - W.K. Kellogg Arabian Horse Center"> 29 - W.K. Kellogg Arabian Horse Center </option>
+                  <option value="30 - Agricultural Unit"> 30 - Agricultural Unit</option>
+                  <option value="31 - Poultry Unit/Poultry Houses"> 31 - Poultry Unit/Poultry Houses</option>
+                  <option value="32 - Beef Unit/Feed Shed"> 32 - Beef Unit/Feed Shed </option>
+                  <option value="33 - Feedmill"> 33 - Feedmill </option>
+                  <option value="34 - Meat Laboratory "> 34 - Meat Laboratory </option>
+                  <option value="35 - Bronco Student Center"> 35 - Bronco Student Center </option>
+                  <option value="42 - Bronco Recreation Intramural Complex (BRIC)"> 42 - Bronco Recreation Intramural Complex (BRIC) </option>
+                  <option value="43 - Kellogg Gymnasium"> 43 - Kellogg Gymnasium </option>
+                  <option value="66 - Bronco Bookstore"> 66 - Bronco Bookstore </option>
+                  <option value="70 - Los Olivos Commons"> 70 - Los Olivos Commons </option>
+                  <option value="85 - I-Poly High School"> 85 - I-Poly High School</option>
+                  <option value="106 - Parking Structure"> 106 - Parking Structure </option>
+                  <option value="109 - Police and Parking Services"> 109 - Police and Parking Services </option>
+                  <option value="116 - Child Care Center"> 116 - Child Care Center </option>
+                  <option value="162-164] - College of Business Administration "> [162-164] - College of Business Administration </option>
+                  <option value="200 - University Village"> 200 - University Village </option>
+
+                </select>
+              </label>
+            </div>
+
+          <!-- *** This will provide the user with a clickable list to express which Parking Lot user parked in ***-->
+
+
+            <div class="col-3">
+              <label>
+                I Have A Parking Spot At
+                 <select tabindex="5" name="ParkingLocation" id="parkingLot">
+                  <option value="Parking Structure">Parking Structure</option>
+                  <option value="Lot B-Close">B : East of Parking Lot K [Closer To Kellogg Dr].</option>
+                  <option value="Lot B-Far">B : East of Parking Lot K [Closer To W Temple].</option>
+                  <option value="Lot F2, F3, F4">F2 : South of Residence Hall, Alamitos (Bldg. 22)</option>
+                  <option value="Lot F2, F3, F4">F3 : North of Parking Lot F4 and South of Recreation/Maintenance</option>
+                  <option value="Lot F2, F3, F4">F4 : North of Parking Structure (Bldg. 106).</option>
+                  <option value="Lot F5, F9, F10">F5 : NorthEast of Parking Structure (Bldg. 106).</option>
+                  <option value="Lot F5, F9, F10">F9 : South of Parking Structure (Bldg. 106).</option>
+                  <option value="Lot F5, F9, F10">F10 : East of Police and Parking Services (Bldg. 109).</option>
+                  <option value="Lot J">J : West of College of Environmental Design (Bldg. 7) and NorthWest of Health Services (Bldg. 46).</option>
+                  <option value="Lot K-Close">K : SouthEast of I Poly High School [Closer to IPoly] .</option>
+                  <option value="Lot K-Far">K : SouthEast of I Poly High School [Closer to S.Campus].</option>
+                  <option value="Lot M">M : South of Parking Lot J and South West of College of Environmental Design (Bldg. 7).</option>
+                  <option value="Lot Q">Q : East of Residence Suites (Bldg. 60).</option>
+                  
+
+                </select>
+              </label>
+            </div>
+
+           
+
+
+            <!-- **************************   Input field for time       *****************-->
+
+            <div class="col-4">
+              <label>
+                Time 
+                <input placeholder= HH:MM id="time" name="Time" tabindex="6">
+              </label>
+            </div>
+           
+            
+           <!-- *************   Submit Button that calls submitInfoFunction() *************-->
+
+            <div class="col-submit">
+              
+              <button class="submitbtn" type="button" onclick="submitInfoFunction()">Submit </button>
+             
+            </div>
+       
+        
+        </form>
+      </div>
+
+  </body>
 </html>

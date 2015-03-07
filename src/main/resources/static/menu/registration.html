@@ -1,130 +1,133 @@
 <!doctype html>
 <html lang="en-US">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html">
-  <title>CPP-Pickup | Registration</title>
-  <meta name="author" content="Jake Rocheleau">
-  <link rel="shortcut icon" href="http://static.tmimgcdn.com/img/favicon.ico">
-  <link rel="icon" href="http://static.tmimgcdn.com/img/favicon.ico">
-  <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
-  <link rel="stylesheet" type="text/css" media="all" href="css/switchery.min.css">
-  <script type="text/javascript" src="js/switchery.min.js"></script>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <title>CPP-Pickup | Registration</title>
+    <meta name="author" content="Jake Rocheleau">
+    <link rel="shortcut icon" href="http://static.tmimgcdn.com/img/favicon.ico">
+    <link rel="icon" href="http://static.tmimgcdn.com/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" media="all" href="css/switchery.min.css">
+    <script type="text/javascript" src="js/switchery.min.js"></script>
+  </head>
 
-<body  background="Pomona_Campus.jpg">>
-  <div id="wrapper">
-  
-  <h1>Join us for better parking in CPP!</h1>
-  
-<form id= "RegForm" action="RegForm.txt" method="get">
- 
-  <div class="col-2">
-  <label>
-      Name*
-      <input placeholder="Enter a name" id="name" name="name" tabindex="1">
-    </label>
-  </div>
-  
- <div class="col-2">
-  <label>
-      Bronco Email*
-      <input placeholder="Enter your Email" id="email" name="email" tabindex="2">
-    </label>
-  </div>
-  
-  <div class="col-2">
-  <label>
-      Bronco ID*
-      <input placeholder="Enter your Bronco ID" id="id" name="id" tabindex="3">
-    </label>
-  </div>
-  
-    <div class="col-2">
-  <label>
-      Major
-      <input placeholder="Enter your Major" id="major" name="major" tabindex="4">
-    </label>
-  </div>
-    <div class="col-2">
-   <label>
-      Password*
-      <input placeholder="Enter your Password" id="password" name="password" tabindex="5">
-    </label>
-  </div>
-  
-    <div class="col-2">
-   <label>
-      Re-enter Password*
-      <input placeholder="Re-enter your Password" id="password2" name="password2" tabindex="6">
-    </label>
-  </div>
-  <div class="col-submit">
-    <button class="submitbtn" type="button" onclick="submitInfoFunction()">Register </button>
-  </div>
-
-  </form>
-  </div>
-
-<script type="text/javascript">
-
-
-
-function submitInfoFunction(){ 
-
-       // Here we will submit info
-       var inputName = document.getElementById("name").value;
-       var inputEmail = document.getElementById("email").value;
-       var inputID = document.getElementById("id").value;
-       var inputMajor = document.getElementById("major").value;
-	   var inputPass = document.getElementById("password").value;
-       var inputPass2 = document.getElementById("password2").value;
-       var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
-       var numberformat = /^[0-9]+$/;  
-	if(inputName.trim() == "")
-	{
-     alert("Please Enter your name!")  
-     return;
-	}
-    	 else if(inputID.trim() == "")
-   	{
-    alert("Please Enter your bronco ID!")  
-    return;
-    } 
-     else if(!inputID.match(numberformat))  
-	{  
-	 alert("Nice try! Bronco IDs are numbers only");    
-		return; 
-	} 
-       else if(!inputEmail.match(mailformat))  
-	{  
-	 alert("You have entered an invalid email address!");    
-		return; 
-	}  
-	else  if(inputPass.trim() == "")
-	{
-    alert("Please Enter your Password !")  
-    return;
-    }  
-    else if (inputPass !== inputPass2)
-	{
-	 alert("Your Passwords don't Match!")  
-	 return;
-	}
-       //submit form and alert for debugging purposes
-       document.getElementById("RegForm").submit();
-
-        alert("Name : " +inputName+ "\n" +"Email : "+inputEmail+ "\n" + "Bronco ID : "+inputID+ "\n" + "Major : " +inputMajor+ "\n"  + "\n Has been submitted.");
-
-        window.location.href = "SuccessReg.html";
-              
-    }
+  <body  background="Pomona_Campus.jpg">>
+    <div id="wrapper">
     
-var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+      <h1>Join us for better parking in CPP!</h1>
+    
+        <form id= "RegForm" action="RegForm.txt" method="get">
+         
+          <div class="col-2">
+          <label>
+              Name*
+              <input placeholder="Enter a name" id="name" name="name" tabindex="1">
+            </label>
+          </div>
+          
+         <div class="col-2">
+          <label>
+              Bronco Email*
+              <input placeholder="Enter your Email" id="email" name="email" tabindex="2">
+            </label>
+          </div>
+          
+          <div class="col-2">
+          <label>
+              Bronco ID*
+              <input placeholder="Enter your Bronco ID" id="id" name="id" tabindex="3">
+            </label>
+          </div>
+          
+            <div class="col-2">
+          <label>
+              Major
+              <input placeholder="Enter your Major" id="major" name="major" tabindex="4">
+            </label>
+          </div>
+            <div class="col-2">
+           <label>
+              Password*
+              <input placeholder="Enter your Password" id="password" name="password" tabindex="5">
+            </label>
+          </div>
+          
+            <div class="col-2">
+           <label>
+              Re-enter Password*
+              <input placeholder="Re-enter your Password" id="password2" name="password2" tabindex="6">
+            </label>
+          </div>
+          <div class="col-submit">
+            <button class="submitbtn" type="button" onclick="submitInfoFunction()">Register </button>
+          </div>
 
-elems.forEach(function(html) {
-  var switchery = new Switchery(html);
-});
-</script>
-</body>
+          </form>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+    function submitInfoFunction(){ 
+
+         // Here we will submit info
+         var inputName = document.getElementById("name").value;
+         var inputEmail = document.getElementById("email").value;
+         var inputID = document.getElementById("id").value;
+         var inputMajor = document.getElementById("major").value;
+  	     var inputPass = document.getElementById("password").value;
+         var inputPass2 = document.getElementById("password2").value;
+         var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+         var numberformat = /^[0-9]+$/; 
+
+          // input validation begins here  
+        	if(inputName.trim() == "")
+        	{
+             alert("Please Enter your name!")  
+             return;
+        	}
+            	 else if(inputID.trim() == "")
+           	{
+            alert("Please Enter your bronco ID!")  
+            return;
+            } 
+             else if(!inputID.match(numberformat))  
+        	{  
+        	 alert("Nice try! Bronco IDs are numbers only");    
+        		return; 
+        	} 
+               else if(!inputEmail.match(mailformat))  
+        	{  
+        	 alert("You have entered an invalid email address!");    
+        		return; 
+        	}  
+        	else  if(inputPass.trim() == "")
+        	{
+            alert("Please Enter your Password !")  
+            return;
+            }  
+            else if (inputPass !== inputPass2)
+        	{
+        	 alert("Your Passwords don't Match!")  
+        	 return;
+        	}// ends here
+
+
+              //submit form and alert for debugging purposes
+               document.getElementById("RegForm").submit();
+
+              alert("Name : " +inputName+ "\n" +"Email : "+inputEmail+ "\n" + "Bronco ID : "+inputID+ "\n" + "Major : " +inputMajor+ "\n"  + "\n Has been submitted.");
+
+              window.location.href = "SuccessReg.html";         
+      }
+        
+      var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+      elems.forEach(function(html) {
+      var switchery = new Switchery(html);
+    });
+    </script>
+  </body>
 </html>

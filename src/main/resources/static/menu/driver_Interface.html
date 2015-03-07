@@ -1,397 +1,435 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
-<title>CPP-Pickup | Driver</title>
-<link rel="stylesheet" href="http://js.arcgis.com/3.12/dijit/themes/claro/claro.css" />
-<link rel="stylesheet" href="http://js.arcgis.com/3.12/esri/css/esri.css" />
-<link rel="stylesheet" href="//js.arcgis.com/3.7/js/esri/css/esri.css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open Sans">
-
-<style>
-    html, body {
-        height:100%;
-        width:100%;
-        margin:0;
-        padding:0;
-        margin:0;
-        font-family: "Open Sans";
-    }
-    #leftPane {
-        width:20%;
-        margin:0;
-        border:none;
-    }
-    #map {
-        padding:0;
-    }
-    .nav {
-        padding: 5px 10px;
-        background: #4479BA;
-        color: #FFF;
-        border-radius: 5px;
-        border: solid 1px #20538D;
-        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
-        -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-
-    }
-    #header {
-        text-align: center;
-        height:60px;
-        border-bottom: solid 1px #ccc;
-    }
-</style>
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-   
-<script src="http://js.arcgis.com/3.12/"></script>
-<script>
-
-    require([
-        "dojo/ready", 
-        "dojo/on",
-        "dojo/_base/connect", 
-        "dojo/dom",
-        "dijit/registry",
-        "dojo/dom-construct",
-        "dojo/parser", 
-        "dijit/layout/BorderContainer", 
-        "dijit/layout/ContentPane", 
-        "esri/map",
-        "esri/arcgis/utils",
-        "esri/domUtils",
-        "esri/dijit/Popup",
-        
-    
-        "esri/geometry/Point",
-        "esri/symbols/SimpleMarkerSymbol",
-        "esri/graphic", 
-        "esri/layers/GraphicsLayer",
-        "dojo/domReady!"
-        
-    ], function(
-        ready, 
-        on, 
-        connect,
-        dom,
-        registry,
-        domConstruct,
-        parser, 
-        BorderContainer, 
-        ContentPane,
-        Map,
-        arcgisUtils,
-        domUtils,
-        
-         Point, SimpleMarkerSymbol, Graphic, GraphicsLayer,
-        
-        Popup
-    ) {
-        ready(function(){
-
-            parser.parse();
-
-            //setup event handlers for the next/previous buttons
-            on(dom.byId("previous"), "click", selectPrevious);
-            on(dom.byId("next"), "click", selectNext);
-  
-            var map = new Map("map", {
-        basemap: "hybrid",
-
-        center: [-117.820663, 34.057027],
-        minZoom : 15,
-        maxZoom : 17,
-
-        zoom: 16
-      });
-      
-       window.map = map;
-      map.infoWindow.set("popupWindow", false);
-      
-      initializeSidebar(window.map);
-      
-      map.on("load", function() { 
-        ShowLocation(-117.816986, 34.060226,"Parking Structure","./images/p.png"); // Parking Structure
-        ShowLocation(-117.8172, 34.058946,"Lot F8","./images/f.png"); // Lot F8
-     
-        ShowLocation(-117.815178,  34.06085,"Lot F5, F9, F10","./images/f.png"); //Lot F5, F9, F10
-        ShowLocation(-117.816841,  34.061561,"Lot F2, F3, F4","./images/f.png");// f3,f4,f2
-    
-        ShowLocation(-117.828932,  34.057802,"Lot J","./images/j.png"); // J
-        ShowLocation(-117.829933,  34.05553,"Lot M","./images/m.png"); // M
-        
-        ShowLocation(-117.819255, 34.051668,"Lot K-Close","./images/k.png"); // Lot K-Close
-        ShowLocation(-117.817495, 34.050984,"Lot K-Far","./images/k.png"); // Lot K-Far
-        
-        ShowLocation(-117.815961, 34.051819,"Lot B-Far","./images/b.png"); // b far
-        ShowLocation(-117.814738, 34.053446,"Lot B-Close","./images/b.png"); // b close
-        
-        
-        ShowLocation(-117.816938, 34.054886,"Lot Q","./images/q.png"); //Q
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+        <title>CPP-Pickup | Driver</title>
+        <link rel="stylesheet" href="http://js.arcgis.com/3.12/dijit/themes/claro/claro.css" />
+        <link rel="stylesheet" href="http://js.arcgis.com/3.12/esri/css/esri.css" />
+        <link rel="stylesheet" href="//js.arcgis.com/3.7/js/esri/css/esri.css">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open Sans">
 
 
-        ShowLocation(-117.82131, 34.063624 ,"ten","./images/10.png"); //10fwy
-        ShowLocation( -117.821497, 34.057845 ,"library","./images/library.png"); //Q
+        <!-- **************************** Small amount of CSS  ***************************** -->
+        <style>
+            html, body {
+                height:100%;
+                width:100%;
+                margin:0;
+                padding:0;
+                margin:0;
+                font-family: "Open Sans";
+            }
+            #leftPane {
+                width:20%;
+                margin:0;
+                border:none;
+            }
+            #map {
+                padding:0;
+            }
+            .nav {
+                padding: 5px 10px;
+                background: #4479BA;
+                color: #FFF;
+                border-radius: 5px;
+                border: solid 1px #20538D;
+                text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+                -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+                -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
 
-        
-  
-        
-      });
+            }
+            #header {
+                text-align: center;
+                height:60px;
+                border-bottom: solid 1px #ccc;
+            }
+        </style>
 
-     //----------------------------------AJAX HTTP REQUEST -------------------------
-     function loadXMLDoc(ParkingLotName)
-    {
-        
-      
-			if (ParkingLotName) {
-		$.ajax(
-				{
-					type : "GET",
-					url  : "/get/" + ParkingLotName,
-					data : {
-						
-					},
-					success : function(result) {
-						 if(result == ""){
-                            $('#leftPane').text("There Are Currently No Parking Slot Available In This Lot");
+
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="http://js.arcgis.com/3.12/"></script>
+
+        <!-- **************************** Esri necessaries for map display and functionality  ******************** -->
+
+        <script>
+
+            require([
+                "dojo/ready", 
+                "dojo/on",
+                "dojo/_base/connect", 
+                "dojo/dom",
+                "dijit/registry",
+                "dojo/dom-construct",
+                "dojo/parser", 
+                "dijit/layout/BorderContainer", 
+                "dijit/layout/ContentPane", 
+                "esri/map",
+                "esri/arcgis/utils",
+                "esri/domUtils",
+                "esri/dijit/Popup",
+                
+            
+                "esri/geometry/Point",
+                "esri/symbols/SimpleMarkerSymbol",
+                "esri/graphic", 
+                "esri/layers/GraphicsLayer",
+                "dojo/domReady!"
+                
+            ], function(
+                ready, 
+                on, 
+                connect,
+                dom,
+                registry,
+                domConstruct,
+                parser, 
+                BorderContainer, 
+                ContentPane,
+                Map,
+                arcgisUtils,
+                domUtils,
+                
+                 Point, SimpleMarkerSymbol, Graphic, GraphicsLayer,
+                
+                Popup
+            ) {
+                ready(function(){
+
+                    parser.parse();
+
+                    //setup event handlers for the next/previous buttons
+                    on(dom.byId("previous"), "click", selectPrevious);
+                    on(dom.byId("next"), "click", selectNext);
+          
+                    var map = new Map("map", {
+                basemap: "hybrid",
+
+                // default map settings that display when user views the page
+                center: [-117.820663, 34.057027],
+                minZoom : 15,
+                maxZoom : 17,
+                zoom: 16
+              });
+              
+              // gets map from the window and sets it to window.map
+              // esri map api will explain several other functions we can do with this
+               window.map = map;
+
+              // the pop up window will not be displayed if the user clicks on the lot
+              map.infoWindow.set("popupWindow", false);
+              
+              initializeSidebar(window.map);
+              
+
+              // When the page loads, the page should populate all of the icons on each respective parking lot
+              // each of the following ShowLocation will display each and every icon on the cordinates given
+              map.on("load", function() { 
+
+                // Parking Structure
+                ShowLocation(-117.816986, 34.060226,"Parking Structure","./images/p.png"); 
+
+                // -----------------------F Lots---
+
+                // Lot F8
+                ShowLocation(-117.8172, 34.058946,"Lot F8","./images/f.png"); 
+                //Lots F5, F9, F10
+                ShowLocation(-117.815178,  34.06085,"Lot F5, F9, F10","./images/f.png"); 
+                //Lots f3,f4,f2
+                ShowLocation(-117.816841,  34.061561,"Lot F2, F3, F4","./images/f.png");
+            
+                // ----------------------------------
+
+                //Lot J
+                ShowLocation(-117.828932,  34.057802,"Lot J","./images/j.png"); 
+                //Lot M
+                ShowLocation(-117.829933,  34.05553,"Lot M","./images/m.png"); 
+
+                // Lot K-Close
+                ShowLocation(-117.819255, 34.051668,"Lot K-Close","./images/k.png"); 
+                // Lot K-Far
+                ShowLocation(-117.817495, 34.050984,"Lot K-Far","./images/k.png"); 
+                
+                // Lot B-far
+                ShowLocation(-117.815961, 34.051819,"Lot B-Far","./images/b.png");
+                // Lot b-close
+                ShowLocation(-117.814738, 34.053446,"Lot B-Close","./images/b.png");
+                
+                //Lot Q
+                ShowLocation(-117.816938, 34.054886,"Lot Q","./images/q.png"); 
+
+                //10fwy for user orientation
+                ShowLocation(-117.82131, 34.063624 ,"ten","./images/10.png"); 
+                // Library for user orientation
+                ShowLocation( -117.821497, 34.057845 ,"library","./images/library.png"); 
+                
+              });
+
+
+
+             //---------------------------AJAX Request for retrieving user for parking lots -------------------------
+             function loadXMLDoc(ParkingLotName)
+            {
+                
+              
+        			if (ParkingLotName) {
+        		      $.ajax(
+        				{
+        					type : "GET",
+        					url  : "/get/" + ParkingLotName,
+        					data : {
+        						
+        					},
+        					success : function(result) {
+                                // will display below message if it returns an empty string
+        						 if(result == ""){
+                                    $('#leftPane').text("There Are Currently No Parking Slot Available In This Lot");
+                                }
+
+                                // will populate the sidebar with linkables that will open up a default user mail client
+                                // the block will receive a long string which it will parse, after parsing it the 
+                                // code will add necessary html tags in order to make it clickable
+                                // once the user clicks the link, the mail will open with the pickupee's email
+                                else{
+                                  var text = "";
+                                  resultArray = result.split("?");
+                                  for (i = 0; i < resultArray.length; i++) { 
+                                         resultArray2 = resultArray[i].split("!");
+                                         var email = resultArray2[1];
+                                         text += "<a href=\"mailto:" + email + "\">" +resultArray2[0] + "</a><br><br>";
+                                    }
+                                 
+                                  document.getElementById("leftPane").innerHTML=text;
+                                }
+        					},
+        					error: function (jqXHR, exception) {
+        						alert("Failed to send the lot.");
+        					}
+        				});
+                	} else {
+                		alert("lot not sent");
+                	}
+            }
+
+
+             //----------------------------------------------------------------------------------------------------------
+
+
+             // ShowLocation will create points on the map and it will 
+             // then create a Marker that will display an image
+             // once it creates the image and adds an infoTemplate(that is currently set to false so it will not display)
+             // the graphic is added to the map
+              function ShowLocation(x, y,information,picture) {
+                
+                  var point = new esri.geometry.Point(x, y, new esri.SpatialReference({wkid:4326}));
+
+                  if(information == "library"){
+                    var simpleMarkerSymbol = new esri.symbol.PictureMarkerSymbol(picture, 140, 41);
+                  }
+                  else{
+                    var simpleMarkerSymbol = new esri.symbol.PictureMarkerSymbol(picture, 51, 51);
+                  }
+            ;
+                 
+                  if(information == "Parking Structure"){
+                    simpleMarkerSymbol.setColor(new esri.Color([0,255,0,255]));
+                  }
+                  else{
+                    simpleMarkerSymbol.setColor(new esri.Color([255,0,0,0.5]));
+                  }
+
+                  var infoTemplate = new esri.InfoTemplate(information, "select");
+                  var graphic = new esri.Graphic(point, simpleMarkerSymbol,null,infoTemplate);
+                  var thisgraphic = map.graphics.add(graphic);
+                  
+              }
+
+
+              
+                // initializes the sidebar that will display the users and sets up the functionalities and behaviour
+                function initializeSidebar(map){
+                    var popup = map.infoWindow;
+
+                    //when the selection changes update the side panel to display the popup info for the 
+                    //currently selected feature. 
+                    connect.connect(popup, "onSelectionChange", function(){
+                        displayPopupContent(popup.getSelectedFeature());
+                    });
+
+                    //when the selection is cleared remove the popup content from the side panel. 
+                    connect.connect(popup, "onClearFeatures", function(){
+                        //dom.byId replaces dojo.byId
+                        dom.byId("featureCount").innerHTML = "Click To View Parking Spots";
+
+                        //registry.byId replaces dijit.byId
+                        registry.byId("leftPane").set("content", "");
+                        domUtils.hide(dom.byId("pager"));
+                    });
+
+                    //When features are associated with the  map's info window update the sidebar with the new content. 
+                    connect.connect(popup, "onSetFeatures", function(){
+                        displayPopupContent(popup.getSelectedFeature());
+                        
+
+
+                        //enable navigation if more than one feature is selected 
+                        popup.features.length > 1 ? domUtils.show(dom.byId("pager")) : domUtils.hide(dom.byId("pager"));
+                    });
+                }
+
+
+
+
+                // depending on the user click, the info will follow this control structure
+                // and will load the appropriate parking lot user list provided by the server
+                function displayPopupContent(feature){
+
+                    if(feature){
+
+                        var title = feature.getTitle();   // this gets the title of the circle graphic
+                      
+                        if(title == "Parking Structure"){
+                            loadXMLDoc("Parking Structure");
+                            var content =  dom.byId("leftPane").innerHTML = "Loading in PS";
+                            registry.byId("leftPane").set("content", content);
+
+                            var listOfParkings = "Parking Structure";
+                            dom.byId("featureCount").innerHTML = listOfParkings;
+                        }
+                        else if(title == "Lot F8"){
+                            loadXMLDoc("Lot F8");
+                            var content =  dom.byId("leftPane").innerHTML = "Loading in Lot F8";
+                            registry.byId("leftPane").set("content", content);
+
+                            var listOfParkings = "Lot F8";
+                            dom.byId("featureCount").innerHTML = listOfParkings;
+                        }
+                        else if(title == "Lot F5, F9, F10"){
+                            loadXMLDoc("Lot F5, F9, F10");
+                            var content =  dom.byId("leftPane").innerHTML = "Loading in Lot F5, F9, F10";
+                            registry.byId("leftPane").set("content", content);
+
+                            var listOfParkings = "Lot F5, F9, F10";
+                            dom.byId("featureCount").innerHTML = listOfParkings;
+                        }
+                        else if(title == "Lot F2, F3, F4"){
+                            loadXMLDoc("Lot F2, F3, F4");
+                            var content =  dom.byId("leftPane").innerHTML = "Loading in Lot F2, F3, F4";
+                            registry.byId("leftPane").set("content", content);
+
+                            var listOfParkings = "Lot F2, F3, F4";
+                            dom.byId("featureCount").innerHTML = listOfParkings;
+                        }
+                        else if(title == "Lot J"){
+                            loadXMLDoc("Lot J");
+                            var content =  dom.byId("leftPane").innerHTML = "Loading in Lot J";
+                            registry.byId("leftPane").set("content", content);
+
+                            var listOfParkings = "Lot J";
+                            dom.byId("featureCount").innerHTML = listOfParkings;
+                        }
+                        else if(title == "Lot M"){
+                            loadXMLDoc("Lot M");
+                            var content =  dom.byId("leftPane").innerHTML = "Loading in M";
+                            registry.byId("leftPane").set("content", content);
+
+                            var listOfParkings = "Lot M";
+                            dom.byId("featureCount").innerHTML = listOfParkings;
+                        }
+                         else if(title == "Lot K-Close"){
+                            loadXMLDoc("Lot K-Close");
+                            var content =  dom.byId("leftPane").innerHTML = "Loading in Lot K-Close";
+                            registry.byId("leftPane").set("content", content);
+
+                            var listOfParkings = "Lot K-Close";
+                            dom.byId("featureCount").innerHTML = listOfParkings;
+                        }
+                         else if(title == "Lot K-Far"){
+                            loadXMLDoc("Lot K-Far");
+                            var content =  dom.byId("leftPane").innerHTML = "Loading in Lot K-Far";
+                            registry.byId("leftPane").set("content", content);
+
+                            var listOfParkings = "Lot K-Far";
+                            dom.byId("featureCount").innerHTML = listOfParkings;
+                        }
+                         else if(title == "Lot B-Close"){
+                            loadXMLDoc("Lot B-Close");
+                            var content =  dom.byId("leftPane").innerHTML = "Loading in Lot B-Close";
+                            registry.byId("leftPane").set("content", content);
+
+                            var listOfParkings = "Lot B-Close";
+                            dom.byId("featureCount").innerHTML = listOfParkings;
+                        }
+                         else if(title == "Lot B-Far"){
+                            loadXMLDoc("Lot B-Far");
+                            var content =  dom.byId("leftPane").innerHTML = "Loading in Lot B-Far";
+                            registry.byId("leftPane").set("content", content);
+
+                            var listOfParkings = "Lot B-Far";
+                            dom.byId("featureCount").innerHTML = listOfParkings;
+                        }
+                         else if(title == "Lot Q"){
+                            loadXMLDoc("Lot Q");
+                            var content =  dom.byId("leftPane").innerHTML = "Loading in Q";
+                            registry.byId("leftPane").set("content", content);
+
+                            var listOfParkings = "Lot Q";
+                            dom.byId("featureCount").innerHTML = listOfParkings;
                         }
                         else{
+                            var content =  dom.byId("leftPane").innerHTML = "";
+                            registry.byId("leftPane").set("content", content);
 
-                          
-                          var text = "";
-                          resultArray = result.split("?");
-                          for (i = 0; i < resultArray.length; i++) { 
-                                 resultArray2 = resultArray[i].split("!");
-                                 var email = resultArray2[1];
-                                 text += "<a href=\"mailto:" + email + "\">" +resultArray2[0] + "</a><br><br>";
-                            }
-
-                         
-                          document.getElementById("leftPane").innerHTML=text;
+                            var listOfParkings = "Click To View Parking Spots";
+                            dom.byId("featureCount").innerHTML = listOfParkings;
                         }
-					},
-					error: function (jqXHR, exception) {
-						alert("Failed to send the lot.");
-					}
-				});
-	} else {
-		alert("lot not sent");
-		}
-}
 
 
-     //---------------------------------------------
-
-
-      function ShowLocation(x, y,information,picture) {
-        
-          var point = new esri.geometry.Point(x, y, new esri.SpatialReference({wkid:4326}));
-
-       
-          //var simpleMarkerSymbol = new esri.symbol.PictureMarkerSymbol(picture, 51, 51);
-            if(information == "library"){
-            var simpleMarkerSymbol = new esri.symbol.PictureMarkerSymbol(picture, 140, 41);
-          }
-          else{
-            var simpleMarkerSymbol = new esri.symbol.PictureMarkerSymbol(picture, 51, 51);
-          }
-      
-;
-         
-          if(information == "Parking Structure"){
-            simpleMarkerSymbol.setColor(new esri.Color([0,255,0,255]));
-          }
-          else{
-            simpleMarkerSymbol.setColor(new esri.Color([255,0,0,0.5]));
-          }
-          var infoTemplate = new esri.InfoTemplate(information, "select");
-          var graphic = new esri.Graphic(point, simpleMarkerSymbol,null,infoTemplate);
-          var thisgraphic = map.graphics.add(graphic);
-          
-      }
-      
-
-            function initializeSidebar(map){
-
-
-                var popup = map.infoWindow;
-
-                //when the selection changes update the side panel to display the popup info for the 
-                //currently selected feature. 
-                connect.connect(popup, "onSelectionChange", function(){
-                    displayPopupContent(popup.getSelectedFeature());
-                });
-
-                //when the selection is cleared remove the popup content from the side panel. 
-                connect.connect(popup, "onClearFeatures", function(){
-                    //dom.byId replaces dojo.byId
-                    dom.byId("featureCount").innerHTML = "Click To View Parking Spots";
-
-                    //registry.byId replaces dijit.byId
-                    registry.byId("leftPane").set("content", "");
-                    domUtils.hide(dom.byId("pager"));
-                });
-
-                //When features are associated with the  map's info window update the sidebar with the new content. 
-                connect.connect(popup, "onSetFeatures", function(){
-                    displayPopupContent(popup.getSelectedFeature());
-                    
-
-
-                    //enable navigation if more than one feature is selected 
-                    popup.features.length > 1 ? domUtils.show(dom.byId("pager")) : domUtils.hide(dom.byId("pager"));
-                });
-            }
-
-            function displayPopupContent(feature){
-
-                if(feature){
-
-
-                    var title = feature.getTitle();   // this gets the title of the circle graphic
-                  
-                    if(title == "Parking Structure"){
-                        loadXMLDoc("Parking Structure");
-                        var content =  dom.byId("leftPane").innerHTML = "Loading in PS";
-                        registry.byId("leftPane").set("content", content);
-
-                        var listOfParkings = "Parking Structure";
-                        dom.byId("featureCount").innerHTML = listOfParkings;
                     }
-                    else if(title == "Lot F8"){
-                        loadXMLDoc("Lot F8");
-                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot F8";
-                        registry.byId("leftPane").set("content", content);
-
-                        var listOfParkings = "Lot F8";
-                        dom.byId("featureCount").innerHTML = listOfParkings;
-                    }
-                    else if(title == "Lot F5, F9, F10"){
-                        loadXMLDoc("Lot F5, F9, F10");
-                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot F5, F9, F10";
-                        registry.byId("leftPane").set("content", content);
-
-                        var listOfParkings = "Lot F5, F9, F10";
-                        dom.byId("featureCount").innerHTML = listOfParkings;
-                    }
-                    else if(title == "Lot F2, F3, F4"){
-                        loadXMLDoc("Lot F2, F3, F4");
-                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot F2, F3, F4";
-                        registry.byId("leftPane").set("content", content);
-
-                        var listOfParkings = "Lot F2, F3, F4";
-                        dom.byId("featureCount").innerHTML = listOfParkings;
-                    }
-                    else if(title == "Lot J"){
-                        loadXMLDoc("Lot J");
-                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot J";
-                        registry.byId("leftPane").set("content", content);
-
-                        var listOfParkings = "Lot J";
-                        dom.byId("featureCount").innerHTML = listOfParkings;
-                    }
-                    else if(title == "Lot M"){
-                        loadXMLDoc("Lot M");
-                        var content =  dom.byId("leftPane").innerHTML = "Loading in M";
-                        registry.byId("leftPane").set("content", content);
-
-                        var listOfParkings = "Lot M";
-                        dom.byId("featureCount").innerHTML = listOfParkings;
-                    }
-                     else if(title == "Lot K-Close"){
-                        loadXMLDoc("Lot K-Close");
-                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot K-Close";
-                        registry.byId("leftPane").set("content", content);
-
-                        var listOfParkings = "Lot K-Close";
-                        dom.byId("featureCount").innerHTML = listOfParkings;
-                    }
-                     else if(title == "Lot K-Far"){
-                        loadXMLDoc("Lot K-Far");
-                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot K-Far";
-                        registry.byId("leftPane").set("content", content);
-
-                        var listOfParkings = "Lot K-Far";
-                        dom.byId("featureCount").innerHTML = listOfParkings;
-                    }
-                     else if(title == "Lot B-Close"){
-                        loadXMLDoc("Lot B-Close");
-                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot B-Close";
-                        registry.byId("leftPane").set("content", content);
-
-                        var listOfParkings = "Lot B-Close";
-                        dom.byId("featureCount").innerHTML = listOfParkings;
-                    }
-                     else if(title == "Lot B-Far"){
-                        loadXMLDoc("Lot B-Far");
-                        var content =  dom.byId("leftPane").innerHTML = "Loading in Lot B-Far";
-                        registry.byId("leftPane").set("content", content);
-
-                        var listOfParkings = "Lot B-Far";
-                        dom.byId("featureCount").innerHTML = listOfParkings;
-                    }
-                     else if(title == "Lot Q"){
-                        loadXMLDoc("Lot Q");
-                        var content =  dom.byId("leftPane").innerHTML = "Loading in Q";
-                        registry.byId("leftPane").set("content", content);
-
-                        var listOfParkings = "Lot Q";
-                        dom.byId("featureCount").innerHTML = listOfParkings;
-                    }
-                    else{
-                        var content =  dom.byId("leftPane").innerHTML = "";
-                        registry.byId("leftPane").set("content", content);
-
-                        var listOfParkings = "Click To View Parking Spots";
-                        dom.byId("featureCount").innerHTML = listOfParkings;
-                    }
-
-                   
-                
-
-
-
                 }
-            }
 
-            function selectPrevious(){
-                window.map.infoWindow.selectPrevious();
-            }
+                    function selectPrevious(){
+                        window.map.infoWindow.selectPrevious();
+                    }
 
-            function selectNext(){
-                window.map.infoWindow.selectNext();
-            }
-        });
-    });
-</script>
-</head>
+                    function selectNext(){
+                        window.map.infoWindow.selectNext();
+                    }
+                });
+            });
+        </script>
 
-<body class="claro">
-<div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" 
-    data-dojo-props="design:'headline',gutters:false" 
-    style="width:100%; height:100%;">
-    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false" 
-        region="left" style="width: 20%;height:100%;">
-        <div id="leftPane" data-dojo-type="dijit/layout/ContentPane" 
-            data-dojo-props="region:'center'"></div>
-        <div id="header" data-dojo-type="dijit/layout/ContentPane" 
-            data-dojo-props="region:'top'">
-            <div id="featureCount" style="margin-bottom:5px;">Click To View Parking Spots</div>
-            <div id="pager" style="display:none;"> 
-                <a href='javascript:void(0);' id ="previous" class='nav' style="text-decoration: none;">
-                    &lt; Prev
-                </a>
-                &nbsp; 
-                <a href='javascript:void(0);' id="next" class='nav'  style="text-decoration: none;">
-                    Next &gt;
-                </a>
+
+
+
+    </head>
+
+    <body class="claro">
+        <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" 
+            data-dojo-props="design:'headline',gutters:false" 
+            style="width:100%; height:100%;">
+            <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false" 
+                region="left" style="width: 20%;height:100%;">
+                <div id="leftPane" data-dojo-type="dijit/layout/ContentPane" 
+                    data-dojo-props="region:'center'"></div>
+                <div id="header" data-dojo-type="dijit/layout/ContentPane" 
+                    data-dojo-props="region:'top'">
+                    <div id="featureCount" style="margin-bottom:5px;">Click To View Parking Spots</div>
+                    <div id="pager" style="display:none;"> 
+                        <a href='javascript:void(0);' id ="previous" class='nav' style="text-decoration: none;">
+                            &lt; Prev
+                        </a>
+                        &nbsp; 
+                        <a href='javascript:void(0);' id="next" class='nav'  style="text-decoration: none;">
+                            Next &gt;
+                        </a>
+                    </div>
+                </div>
             </div>
+            <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
         </div>
-    </div>
-    <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
-</div>
-</body>
+    </body>
 
 </html> 
