@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.csupomona.cs480.data.ParkedUser;
 import edu.csupomona.cs480.data.ParkedUserMap;
 import edu.csupomona.cs480.data.User;
+import edu.csupomona.cs480.data.UserMap;
 import edu.csupomona.cs480.util.ResourceResolver;
 
 /**

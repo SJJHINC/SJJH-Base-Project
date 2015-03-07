@@ -8,10 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import edu.csupomona.cs480.data.ParkedUser;
 import edu.csupomona.cs480.data.ParkingLot;
 import edu.csupomona.cs480.data.ParkingLotManager;
 import edu.csupomona.cs480.data.ParkingLotManagerSingleton;
 import edu.csupomona.cs480.data.User;
+import edu.csupomona.cs480.data.UserNeedSpace;
+import edu.csupomona.cs480.data.provider.MessageManager;
+import edu.csupomona.cs480.data.provider.ParkSpaceManager;
+import edu.csupomona.cs480.data.provider.UserManager;
+import edu.csupomona.cs480.data.provider.UserNeedSpaceManager;
 
 /**
  * This is the controller used by Spring framework.
@@ -35,22 +41,15 @@ public class WebController {
 	 * In our project, all the beans are defined in the {@link App} class.
 	 */
 	@Autowired
+	private UserManager userManager;
+	private MessageManager messageManager;
 	public boolean full = false;
 	private ParkingLotManager PL;
 
-	/**
-	 * These objects are part of our original design that we had to move away
-	 * from. As explained below, they are kept here because we will eventually
-	 * rewrite everything to work with these methods, but for now, they don't do
-	 * anything.
-	 */
-	// private ParkSpaceManager parkSpaceManager = new ParkSpaceManager();
-	// private ParkedUser currentParkedUser;
-	// private UserNeedSpaceManager userNeedSpaceManager = new
-	// UserNeedSpaceManager();
-	// private UserNeedSpace userNeedSpace;
-	// private UserManager userManager;
-	// private MessageManager messageManager;
+	private ParkSpaceManager parkSpaceManager = new ParkSpaceManager();
+	private ParkedUser currentParkedUser;
+	private UserNeedSpaceManager userNeedSpaceManager = new UserNeedSpaceManager();
+	private UserNeedSpace userNeedSpace;
 
 	/**
 	 * This method instantiates and fills the Parking Lot Manager with all of
@@ -149,8 +148,8 @@ public class WebController {
 		for (int i = 0; i < list.size(); i++) {
 			User test = list.get(i);
 			userTest += (test.getName() + " is in " + test.getBuilding()
-					+ " and leaves at " + test.getLeave() + " !" + test
-					.getEmail());
+					+ " and leaves at " + test.getLeave()
+					+ " !" + test.getEmail());
 			userTest += " ? ";
 		}
 		System.out.print(userTest);
@@ -158,71 +157,68 @@ public class WebController {
 		return userTest;
 	}
 
-	/**
-	 * The following set of url based commands were part of our original, and if
-	 * further implemented, future design. For time issues related to the
-	 * project, we had to change how we were going to store and work with user
-	 * data, but these methods represent our attempts at getting these to work.
-	 */
-	// @RequestMapping(value = "/cs480/parkedUser/list", method =
-	// RequestMethod.GET)
-	// List<ParkedUser> listAllParkedSpace() {
-	// return parkSpaceManager.listAllUsers();
-	// }
-	//
-	// @RequestMapping(value = "/cs480/parkedUser/add", method =
-	// RequestMethod.POST)
-	// ParkedUser addParkedSpace(
-	// // @RequestParam("userId") String userId,
-	// @RequestParam("Time Hour:") int hour,
-	// @RequestParam("minute") int minute,
-	// @RequestParam("pickOrNot") boolean pickOrNot,
-	// @RequestParam(value = "location", required = false) int buildingNum,
-	// @RequestParam("Contact Information") String contactInfo) {
-	// ParkedUser user = new ParkedUser();
-	// // user.setUserName(currentUser.getId());
-	// user.setPickup(pickOrNot);
-	// user.setContactInfo(contactInfo);
-	// user.setHour(hour);
-	// user.setMinute(minute);
-	// user.setPickUpBuildingNum(buildingNum);
-	// parkSpaceManager.updateParkedSpace(user);
-	// return user;
-	// }
-	//
-	// @RequestMapping(value = "/cs480/parkedUser/delete/{postId}", method =
-	// RequestMethod.DELETE)
-	// void deleteParkedSpace(@PathVariable("postId") String postId) {
-	// parkSpaceManager.deleteParkedSpace(postId);
-	// }
-	//
-	//
-	// @RequestMapping(value = "/cs480/userNeedSpace/list", method =
-	// RequestMethod.GET)
-	// List<UserNeedSpace> listAllUserNeedSpace() {
-	// return userNeedSpaceManager.listAllUsers();
-	// }
-	//
-	// @RequestMapping(value = "/cs480/userNeedSpace/add", method =
-	// RequestMethod.POST)
-	// UserNeedSpace addUserNeedSpace(
-	// // @RequestParam("userId") String userId,
-	// @RequestParam("Time Hour:") int hour,
-	// @RequestParam("minute") int minute,
-	// @RequestParam("Contact Information") String contactInfo) {
-	// UserNeedSpace user = new UserNeedSpace();
-	// // user.setUserName(currentUser.getId());
-	// user.setContactInfo(contactInfo);
-	// user.setHour(hour);
-	// user.setMinute(minute);
-	// userNeedSpaceManager.updateUser(user);
-	// return user;
-	// }
-	//
-	// @RequestMapping(value = "/cs480/userNeedSpace/delete/{postId}", method =
-	// RequestMethod.DELETE)
-	// void deleteUserNeedSpace(@PathVariable("postId") String postId) {
-	// messageManager.deleteMessage(postId);
-	// }
+	
+	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.GET)
+	User getUser(@PathVariable("userId") String userId) {
+		User user = userManager.getUser(userId);
+		return user;
+	}
 
+	// -------------------------------parked
+	// space---------------------------------
+	@RequestMapping(value = "/cs480/parkedUser/list", method = RequestMethod.GET)
+	List<ParkedUser> listAllParkedSpace() {
+		return parkSpaceManager.listAllUsers();
+	}
+
+	@RequestMapping(value = "/cs480/parkedUser/add", method = RequestMethod.POST)
+	ParkedUser addParkedSpace(
+			// @RequestParam("userId") String userId,
+			@RequestParam("Time Hour:") int hour,
+			@RequestParam("minute") int minute,
+			@RequestParam("pickOrNot") boolean pickOrNot,
+			@RequestParam(value = "location", required = false) int buildingNum,
+			@RequestParam("Contact Information") String contactInfo) {
+		ParkedUser user = new ParkedUser();
+		// user.setUserName(currentUser.getId());
+		user.setPickup(pickOrNot);
+		user.setContactInfo(contactInfo);
+		user.setHour(hour);
+		user.setMinute(minute);
+		user.setPickUpBuildingNum(buildingNum);
+		parkSpaceManager.updateParkedSpace(user);
+		return user;
+	}
+
+	@RequestMapping(value = "/cs480/parkedUser/delete/{postId}", method = RequestMethod.DELETE)
+	void deleteParkedSpace(@PathVariable("postId") String postId) {
+		parkSpaceManager.deleteParkedSpace(postId);
+	}
+
+	// -------------------------user that need a parking
+	// space--------------------------------
+	@RequestMapping(value = "/cs480/userNeedSpace/list", method = RequestMethod.GET)
+	List<UserNeedSpace> listAllUserNeedSpace() {
+		return userNeedSpaceManager.listAllUsers();
+	}
+
+	@RequestMapping(value = "/cs480/userNeedSpace/add", method = RequestMethod.POST)
+	UserNeedSpace addUserNeedSpace(
+			// @RequestParam("userId") String userId,
+			@RequestParam("Time Hour:") int hour,
+			@RequestParam("minute") int minute,
+			@RequestParam("Contact Information") String contactInfo) {
+		UserNeedSpace user = new UserNeedSpace();
+		// user.setUserName(currentUser.getId());
+		user.setContactInfo(contactInfo);
+		user.setHour(hour);
+		user.setMinute(minute);
+		userNeedSpaceManager.updateUser(user);
+		return user;
+	}
+
+	@RequestMapping(value = "/cs480/userNeedSpace/delete/{postId}", method = RequestMethod.DELETE)
+	void deleteUserNeedSpace(@PathVariable("postId") String postId) {
+		messageManager.deleteMessage(postId);
+	}
 }

@@ -1,36 +1,34 @@
+
+//this class was originally intended to keep message for each
+//parking space
+//some user don't want to give out contact information or 
+//person picking up may have different intention then the message is evidence
+
 package edu.csupomona.cs480.data;
 
 import java.util.ArrayList;
 
-/**
- * This class was our original attempt at holding and storing messages between
- * users. It worked by holding two parallel arrays between users and the
- * messages they sent.
- *
- */
 public class Message {
 	private String messageID;
 	private String messageTitle;
 	private ArrayList<String> username;
 	private ArrayList<String> committ;
 	private static Message messageObject;
-
-	private Message() {
+	
+	private Message(){
 		username = new ArrayList<String>();
 		committ = new ArrayList<String>();
 	}
-
-	public static Message getMessageObject() {
-		if (messageObject == null) {
+	public static Message getMessageObject(){
+		if(messageObject == null){
 			messageObject = new Message();
 		}
 		return messageObject;
-	}
-
-	public Object clone() throws CloneNotSupportedException {
+	} 
+	
+	public Object clone() throws CloneNotSupportedException{
 		throw new CloneNotSupportedException();
 	}
-
 	public ArrayList<String> getUsername() {
 		return username;
 	}
@@ -42,7 +40,6 @@ public class Message {
 	public ArrayList<String> getCommitt() {
 		return committ;
 	}
-
 	public ArrayList<String> getuserName() {
 		return username;
 	}
@@ -68,4 +65,7 @@ public class Message {
 		this.messageID = messageID;
 	}
 
+	
+	
+	
 }

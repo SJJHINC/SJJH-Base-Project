@@ -3,21 +3,6 @@ package edu.csupomona.cs480.data;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author SJJH INC This class is our representation of the Single set of
- *         Parking Lots that make up Cal Poly. It manages all of the individual
- *         lots together into one List of Parking lots, from which the
- *         webcontroller can call methods to add or print users in the
- *         individual parking lots.
- * 
- *         This method is created in a way that uses the concept of Singletons.
- *         Since we only want one real set of ParkingLots, the singleton method
- *         seems a good way to secure ourselves from accidentally creating and
- *         filling the lots again. Our final product will hopefully contain this
- *         method being used completely, but for now, it was just run as a test.
- *
- */
-
 public class ParkingLotManagerSingleton {
 
 	private static List<ParkingLot> plm;

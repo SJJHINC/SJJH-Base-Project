@@ -1,5 +1,7 @@
 package edu.csupomona.cs480.data;
 
+import java.util.Date;
+
 /**
  * The basic user object, to be created through the webcontroller and stored in
  * the parkingLots. The user itself stores what building they are currently in,
