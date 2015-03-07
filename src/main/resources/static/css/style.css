@@ -110,7 +110,7 @@ input[type="button"]{
 	float:right;
 	font-size:14px;
 	display: inline-block;
-	font-weight:600;
+	font-weight:500;
 	color: #fff;
 	transition: 0.1s all;
 	-webkit-transition: 0.1s all;
@@ -118,8 +118,8 @@ input[type="button"]{
 	-o-transition: 0.1s all;
 	cursor: pointer;
 	outline: none;
-	padding:15px 10px;
-	margin-top:1px;
+	padding:10px 10px;
+	margin-top:7px;
 	font-family: 'Open Sans', sans-serif;
 	width:40%;
 	border:none;
