@@ -42,11 +42,16 @@ public class ParkingLot {
 	}
 
 	public void addUserToLot(User u) {
+		boolean add = true;
 		for (int i = 0; i < parkedUsers.size(); i++) {
 			if (u.getEmail().compareTo(parkedUsers.get(i).getEmail()) == 0) {
 				parkedUsers.remove(i);
 				parkedUsers.add(u);
+				add = false;
 			}
+		}
+		if (add) {
+			parkedUsers.add(u);
 		}
 
 	}

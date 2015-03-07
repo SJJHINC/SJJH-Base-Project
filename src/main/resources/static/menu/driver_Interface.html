@@ -163,7 +163,9 @@
                           var text = "";
                           resultArray = result.split("?");
                           for (i = 0; i < resultArray.length; i++) { 
-                                 text += "<a href=\"mailto:example@csupomona.edu\">" +resultArray[i] + "</a><br><br>";
+                                 resultArray2 = resultArray[i].split("!");
+                                 var email = resultArray2[i];
+                                 text += "<a href=\"mailto:" + email + "\">" +resultArray2[0] + "</a><br><br>";
                             }
 
                          

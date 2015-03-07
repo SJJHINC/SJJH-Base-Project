@@ -149,7 +149,7 @@ public class WebController {
 			User test = list.get(i);
 			userTest += (test.getName() + " is in " + test.getBuilding()
 					+ " and leaves at " + test.getLeave()
-					+ ". Their email is: " + test.getEmail());
+					+ " !" + test.getEmail());
 			userTest += " ? ";
 		}
 		System.out.print(userTest);
