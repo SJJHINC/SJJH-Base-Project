@@ -140,10 +140,12 @@ public class WebController {
 	@RequestMapping(value = "/add/{name}", method = RequestMethod.POST)
 	String addUserToLot(@PathVariable("name") String name,
 			@RequestParam("building") String building,
-			@RequestParam("lot") String lot, @RequestParam("time") String time) {
+			@RequestParam("lot") String lot, 
+			@RequestParam("time") String time,
+	        @RequestParam("email") String email) {
 
-		User user = new User(name, building, time);
-		System.out.println(name + " " + building + " " + time + " " + lot);
+		User user = new User(name, building, time, email);
+		System.out.println(name + " " + building + " " + time + " " + lot + " " + email);
 		PL.addUser(user, lot);
 		return "/menu";
 	}
