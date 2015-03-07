@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 @ComponentScan
 public class App {
-
+    
     /**
      * This is the running main method for the web application.
      * Please note that Spring requires that there is one and
