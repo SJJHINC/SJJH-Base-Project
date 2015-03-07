@@ -1,5 +1,4 @@
 
-//Test comment for GIT Test
 package edu.csupomona.cs480;
 
 import org.springframework.boot.SpringApplication;
