@@ -9,30 +9,34 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.csupomona.cs480.data.Message;
 import edu.csupomona.cs480.data.MessageMap;
-import edu.csupomona.cs480.data.ParkedUser;
-import edu.csupomona.cs480.data.ParkedUserMap;
 import edu.csupomona.cs480.util.ResourceResolver;
 
+/**
+ * @author SJJH INC This class was part of our original attempt to mimic Dr.
+ *         Suns manipulation of data in the form of Users, but in our case, to
+ *         handle our message Passing.
+ *
+ */
 public class MessageManager {
 	private static final ObjectMapper JSON = new ObjectMapper();
-	
+
 	private MessageMap getMessageMap() {
 		MessageMap messageMap = null;
 		File messagerFile = ResourceResolver.getMessageFile();
-        if (messagerFile.exists()) {
-        	// read the file and convert the JSON content
-        	// to the UserMap object
-            try {
-            	messageMap = JSON.readValue(messagerFile, MessageMap.class);
+		if (messagerFile.exists()) {
+			// read the file and convert the JSON content
+			// to the UserMap object
+			try {
+				messageMap = JSON.readValue(messagerFile, MessageMap.class);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-        } else {
-        	messageMap = new MessageMap();
-        }
-        return messageMap;
+		} else {
+			messageMap = new MessageMap();
+		}
+		return messageMap;
 	}
-	
+
 	/**
 	 * Save and persist the message map in the local file.
 	 *
@@ -41,28 +45,29 @@ public class MessageManager {
 	private void persistMessageMap(MessageMap messageMap) {
 		try {
 			// convert the parkeduser object to JSON format
-            JSON.writeValue(ResourceResolver.getMessageFile(), messageMap);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-	}
-	
-	public Message getMessage(String name) {
-		MessageMap messageMap = getMessageMap();
-        return messageMap.get(name);
+			JSON.writeValue(ResourceResolver.getMessageFile(), messageMap);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void updateMessageUser(Message message ) {
+	public Message getMessage(String name) {
+		MessageMap messageMap = getMessageMap();
+		return messageMap.get(name);
+	}
+
+	public void updateMessageUser(Message message) {
 		MessageMap messageMap = getMessageMap();
 		messageMap.put(message.getMessageID(), message);
 		persistMessageMap(messageMap);
 	}
+
 	public void deleteMessage(String messageId) {
 		MessageMap messageMap = getMessageMap();
 		messageMap.remove(messageId);
 		persistMessageMap(messageMap);
 	}
-	
+
 	public List<Message> listMessage(String userId) {
 		MessageMap messageMap = getMessageMap();
 		return new ArrayList<Message>(messageMap.values());
