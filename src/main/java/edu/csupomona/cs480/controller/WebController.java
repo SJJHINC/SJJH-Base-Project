@@ -1,5 +1,3 @@
-//Laptop Git Test
-
 package edu.csupomona.cs480.controller;
 
 import java.util.List;
@@ -10,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import edu.csupomona.cs480.data.ParkedUser;
 import edu.csupomona.cs480.data.ParkingLot;
 import edu.csupomona.cs480.data.ParkingLotManager;
@@ -23,20 +19,6 @@ import edu.csupomona.cs480.data.provider.ParkSpaceManager;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.data.provider.UserNeedSpaceManager;
 
-///////////////////////////////////
-import java.io.IOException;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.apache.commons.lang3.time.StopWatch;
-///////////////////////////////////
-import org.apache.commons.math3.complex.*;
-import org.apache.commons.math3.random.*;
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-
-//////////////////////////////////
 /**
  * This is the controller used by Spring framework.
  * <p>
@@ -46,7 +28,7 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
  */
 
 /**
- * @author Jeremiah
+ * @author Jeremiah Porcu, Jose Silva, Hesham Darwish, Sang Pham
  *
  */
 @RestController
@@ -62,7 +44,6 @@ public class WebController {
 	private UserManager userManager;
 	private MessageManager messageManager;
 	public boolean full = false;
-	private User currentUser;
 	private ParkingLotManager PL;
 
 	private ParkSpaceManager parkSpaceManager = new ParkSpaceManager();
@@ -71,19 +52,11 @@ public class WebController {
 	private UserNeedSpace userNeedSpace;
 
 	/**
-	 * This is a simple example of how the HTTP API works. It returns a String
-	 * "OK" in the HTTP response. To try it, run the web application locally, in
-	 * your web browser, type the link: http://localhost:8080/cs480/ping
+	 * This method instantiates and fills the Parking Lot Manager with all of
+	 * the parking lots used in our code. It gets called on the first user
+	 * signing in, and only gets called once.
+	 * 
 	 */
-	@RequestMapping(value = "/cs480/ping", method = RequestMethod.GET)
-	String healthCheck() {
-		// You can replace this with other string,
-		// and run the application locally to check your changes
-		// with the URL: http://localhost:8080/
-		return "OK";
-	}
-
-	// /For now, this method will create the parkingLotManager
 	@RequestMapping(value = "/fill", method = RequestMethod.GET)
 	String fill() {
 		if (full == false) {
@@ -117,6 +90,12 @@ public class WebController {
 		return "";
 	}
 
+	/**
+	 * This method created and instantiated a ParkingLot singleton. For the sake
+	 * of our own code, we haven't implemented this into the final product yet,
+	 * however we plan on eventually using this to simplify the process.
+	 * 
+	 */
 	@RequestMapping(value = "/cs480/SingletonTest", method = RequestMethod.GET)
 	String Singletontest() {
 
@@ -136,20 +115,32 @@ public class WebController {
 
 	}
 
-	// Adding A user into a parking lot
+	/**
+	 * This method adds a user to the appropriate parking lot as specified by
+	 * the data sent to this method from the website. Based on the "lot" field,
+	 * this method finds that appropriate parking lot within the
+	 * ParkingLotManager and inserts that user into the field
+	 * 
+	 */
 	@RequestMapping(value = "/add/{name}", method = RequestMethod.POST)
 	String addUserToLot(@PathVariable("name") String name,
 			@RequestParam("building") String building,
-			@RequestParam("lot") String lot, 
-			@RequestParam("time") String time,
-	        @RequestParam("email") String email) {
+			@RequestParam("lot") String lot, @RequestParam("time") String time,
+			@RequestParam("email") String email) {
 
 		User user = new User(name, building, time, email);
-		System.out.println(name + " " + building + " " + time + " " + lot + " " + email);
+		System.out.println(name + " " + building + " " + time + " " + lot + " "
+				+ email);
 		PL.addUser(user, lot);
 		return "/menu";
 	}
 
+	/**
+	 * This method returns a string that is the concatenation of all the users
+	 * in a specific lot's data. This is the information that gets returned to
+	 * the website to be displayed when a parking lot is pressed.
+	 * 
+	 */
 	@RequestMapping(value = "/get/{lot}", method = RequestMethod.GET)
 	String getFirstUser(@PathVariable("lot") String lot) {
 		List<User> list = PL.getUserList(lot);
@@ -157,7 +148,8 @@ public class WebController {
 		for (int i = 0; i < list.size(); i++) {
 			User test = list.get(i);
 			userTest += (test.getName() + " is in " + test.getBuilding()
-					+ " and leaves at " + test.getLeave());
+					+ " and leaves at " + test.getLeave()
+					+ ". Their email is: " + test.getEmail());
 			userTest += " ? ";
 		}
 		System.out.print(userTest);
@@ -165,13 +157,7 @@ public class WebController {
 		return userTest;
 	}
 
-	// // The list of people in a certain parking lot
-	// @RequestMapping(value = "/get/{lot}", method = RequestMethod.GET)
-	// List<User> getUsers(@PathVariable("lot") String lot) {
-	//
-	// return PL.getUserList(lot);
-	// }
-
+	
 	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.GET)
 	User getUser(@PathVariable("userId") String userId) {
 		User user = userManager.getUser(userId);

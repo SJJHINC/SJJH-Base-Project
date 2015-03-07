@@ -3,7 +3,9 @@ package edu.csupomona.cs480.data;
 import java.util.Date;
 
 /**
- * The basic user object.
+ * The basic user object, to be created through the webcontroller and stored in
+ * the parkingLots. The user itself stores what building they are currently in,
+ * as well as what time they will be leaving.
  */
 public class User {
 
@@ -11,7 +13,6 @@ public class User {
 	private String building;
 	private String estimateLeavingtime;
 	private String email;
-
 
 	public String getEmail() {
 		return email;
@@ -26,7 +27,7 @@ public class User {
 		this.building = building;
 		this.estimateLeavingtime = time;
 		this.email = email;
-		
+
 	}
 
 	public String getName() {
